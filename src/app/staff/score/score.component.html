@@ -1,0 +1,78 @@
+<br>
+
+  <div class="row">
+    <div class="col-4 offset-4">
+      <div class="card btn btn-outline-dark mb-3" *ngFor="let con of concursos" style="text-align: center;">
+        <div class="card-header">
+          <img src="{{llenar_imagen(con.imagen)}}" alt="Foto" width="50%" height="50px"> <br>
+          {{con.titulo}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4 style="text-align: center; font-size: 30px;">SCORE BOARD</h4>
+  <div class="col-3 offset-3">
+    <button class="btn btn-dark btn-sm" *ngIf="detalles[0][0].posicion>0">CONCURSO FINALIZADO</button>
+  </div>
+
+  <div class="row">
+    <div class="col-10 offset-1">
+      <div class="btn-group" role="group" >
+        <a *ngFor="let ca of categorias" (click)="mostrar_detalle(ca.id)" class="btn btn-outline-danger btn-sm">
+          {{ca.titulo}}-{{ca.descripcion}}  
+        </a>    
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="col-10 offset-1" *ngIf="flat">
+    <input type="search" class="form-control" placeholder="Buscar" name="filterPost" [(ngModel)]="filterpost"  maxlength="20">
+  </div>
+  <hr>    
+  <div class="col-10 offset-1" *ngIf="flat">
+  <table class="table table-sm table-bordered" id="tabla">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nro</th>
+        <th scope="col">Equipo/Problema</th>
+        <th scope="col">Cuenta</th>
+        <th scope="col" style="text-align: center;" *ngFor="let p of problemas">{{p.alias}}</th>
+        <th scope="col">Total</th>
+        <th scope="col">Medalla</th>
+     </tr>
+    </thead>
+  <tbody>    
+    <tr *ngFor="let detalle of detalles| pipeScore: filterpost;let i =index" style="margin-bottom: -10px;">
+      <td class="table-active" scope="row">{{i + 1}}</td>
+      <td class="table-active" scope="row" style="text-align: left;" >
+        {{detalle[0].nombre}}
+      </td>
+      <td>
+        {{detalle[0].cuenta}}
+      </td>
+      <td *ngFor="let d of detalle[1]" style="text-align: center;font-size: 10px;">
+          <!-- <div  style="background-color:white; width: 90%; height: 40px;"  *ngIf="d.estado==0">
+          </div>              -->
+          <div [ngStyle]="{'background-color': d.color}" style="width: 80%; height: 30px; border-radius: 40%;  border: 1px solid #555; "*ngIf="d.estado>0" >
+          </div>         
+            <p *ngIf="d.intento>0"style="margin-bottom: -10px;">
+              {{d.intento}}/{{d.tiempo}}
+            </p>
+      </td>
+      <td style="font-size: 10px;">
+        {{detalle[2].resuelto}}({{detalle[2].tiempo}})
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==1">
+        <img src="assets/images/oro.png" width="25px">(Oro)
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==2">
+        <img src="assets/images/plata.png" width="25px">(Plata)
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==3">
+        <img src="assets/images/bronce.png" width="25px">(Bronce)
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==4">Mencion de Honor</td>
+    </tr>
+  </tbody>
+</table>
+</div>

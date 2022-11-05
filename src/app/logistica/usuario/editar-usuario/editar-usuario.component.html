@@ -1,0 +1,65 @@
+<div>
+    <h3 mat-dialog-title>Actualizar Usuario</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="formulario">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" placeholder="Nombre" name="nombre" maxlength="20" value="data.nombre">
+                        <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido" type="text" placeholder="Apellido" name="apellido" maxlength="20">
+                        <mat-error *ngIf="apellido.invalid">{{error_apellido()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Rol</mat-label>
+                        <mat-select matNativeControl formControlName="rol">
+                            <mat-option value="1" selected>Administrador</mat-option>
+                            <mat-option value="2">Logística</mat-option>
+                            <mat-option value="3">Staff</mat-option>
+                            <mat-error *ngIf="rol.invalid">{{error_rol()}}</mat-error>
+                        </mat-select>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Correo</mat-label>
+                        <input matInput formControlName="email" type="email" placeholder="correo" name="email">
+                        <mat-error *ngIf="email.invalid">{{error_email()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cuenta</mat-label>
+                        <input matInput formControlName="username" type="text" placeholder="Cuenta" name="username">
+                        <mat-error *ngIf="username.invalid">{{error_username()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Clave</mat-label>
+                        <input matInput formControlName="password" type="password" placeholder="Clave" name="clave">
+                        <mat-error *ngIf="password.invalid">{{error_password()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                    <div>
+					    <input id="image" class="form-control" type="image"alt="Login" (click)="simagen.click()" src="../../../assets/images/sis_inf.png">
+					    <input type="file" accept="image/png,image/jpeg,image/jpg" class="form-control" #simagen id="imagen" formControlName="imagen" [hidden]="true" (change)="cargarImagen($event)">
+					    <input type="text" formControlName="img" [hidden]="true">
+                        <mat-error *ngIf="imagen.invalid">{{error_imagen()}}</mat-error>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="formulario" class="btn btn-primary" [disabled]="formulario.invalid" (click)="cambiar()">Actualizar</button>
+    </div>
+</div>

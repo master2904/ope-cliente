@@ -1,0 +1,54 @@
+<br>
+<h4>COLEGIOS</h4>
+<br>
+	<div class="row">
+  		<div class="col-lg-10 offset-1">
+        <div class="btn-group" role="group" >
+        <button type="button" class="btn btn-outline-primary"(click)="agregar()"><mat-icon>add</mat-icon>Nuevo Colegio</button>
+				<button type="button" class="btn btn-outline-danger" (click)="pdf()"><mat-icon>picture_as_pdf</mat-icon>Descargar PDF</button>
+			</div>
+    </div>
+    </div>
+  <hr>
+  <div class="row" style="width: 100%;">
+    <div class="col-lg-10 offset-1">
+      <input type="search" class="form-control" placeholder="Buscar" name="filterPost"  [(ngModel)]="filterpost"  maxlength="20">
+		</div>
+  </div>
+    <br>
+<!-- listado-->
+<div class="row">
+</div>
+<div class="row">
+    <div class="col-8 offset-2">
+        <table class="table table-bordered table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Color</th>
+                    <th>Opcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lab of colegios| filterColegio:filterpost">
+                    <td>{{lab.codigo}}</td>
+                    <td>{{lab.nombre}}</td>
+                    <td>
+                        <div [ngStyle]="{'background-color': lab.color}" style="width: 90%; height: 30px; border: 1px solid #555;">
+                        </div>                       
+                    </td>
+                    <td><div class="btn-group" role="group" >
+                        <button (click)="remove(lab.id)" class="btn btn-danger btn-sm">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        <button type="button" class="btn btn-success btn-sm" (click)="cambiar(lab)">
+                          <mat-icon >edit</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

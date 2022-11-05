@@ -1,0 +1,24 @@
+<div>
+    <h2 mat-dialog-title>Distribucion de Maquinas</h2>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 600px; padding: 1rem;">
+            <table class="table">
+                <tbody>
+                  <tr *ngFor="let fila of fmaquinas">
+                    <td *ngFor="let col of fila" style="text-align: center;">
+                        <div class="imagen">
+                            <p>
+                              {{col}}
+                            </p>
+                          </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="btn btn-primary" (click)="cancelar()">Cerrar</button>
+        
+    </div>
+</div>

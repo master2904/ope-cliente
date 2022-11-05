@@ -1,0 +1,45 @@
+<div>
+    <h4 mat-dialog-title>Nuevo Problema</h4>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <mat-form-field appearance="fill">
+                    <mat-label>Alias</mat-label>
+                    <input matInput formControlName="alias" type="text" placeholder="A1" name="alias" maxlength="20">
+                    <mat-error *ngIf="alias.invalid">{{error_alias()}}</mat-error>
+                </mat-form-field>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Titulo</mat-label>
+                        <input matInput formControlName="titulo" type="text" placeholder="Sendero de la vida" name="titulo" maxlength="40">
+                        <mat-error *ngIf="titulo.invalid">{{error_titulo()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Dificultad</mat-label>
+                        <mat-select matNativeControl formControlName="dificultad">
+                            <mat-option value="Facil" selected>Facil</mat-option>
+                            <mat-option value="Medio">Medio</mat-option>
+                            <mat-option value="Dificil">Dificil</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="dificultad.invalid">{{error_dificultad()}}</mat-error>
+                    </mat-form-field>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Autor</mat-label>
+                        <input matInput formControlName="autor" type="text" name="autor" value="20">
+                        <mat-error *ngIf="autor.invalid">{{error_autor()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <div>
+                    <input type="color" class="form-control" id="color" name="color" placeholder="color" formControlName="color">
+                    <mat-error *ngIf="color.invalid">{{error_color()}}</mat-error>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

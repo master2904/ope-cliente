@@ -1,0 +1,27 @@
+<div>
+    <h3 mat-dialog-title>Registrando Solucion</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>tiempo</mat-label>
+                        <input matInput formControlName="tiempo" type="number" placeholder="tiempo" name="tiempo" maxlength="20">
+                        <mat-error *ngIf="tiempo.invalid">{{error_tiempo()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>intento</mat-label>
+                        <input matInput formControlName="intento" type="number" placeholder="intento" name="intento" maxlength="20">
+                        <mat-error *ngIf="intento.invalid">{{error_intento()}}</mat-error>
+                    </mat-form-field>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

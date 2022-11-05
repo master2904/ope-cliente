@@ -1,0 +1,68 @@
+<br>  
+<h4>EQUIPOS</h4>
+<br>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+      <div class="card bg-light mb-3" *ngFor="let con of concursos">
+        <div class="card-header">{{con.titulo}}</div>
+			<img src="{{llenar_imagen(con.imagen)}}" alt="Foto" width="100%" height="150px">
+        <div class="card-body" style="text-align: justify;" >
+          <p class="card-text">Gestion: {{con.gestion}}</p>
+          <p class="card-text">Inicio: {{con.fecha|date:'medium'}} </p>
+        </div>
+      </div>
+      <mat-form-field appearance="fill" *ngIf="fcat">
+        <mat-label>CATEGORIAS</mat-label>
+        <mat-select>
+          <mat-option>Vacio</mat-option>
+          <mat-option *ngFor="let ca of categorias" [value]="ca.id" (click)="mostrar_equipos(ca);">
+            <span class="badge bg-warning">
+              Nro. {{ ca.id }}
+            </span>
+            <strong>{{ca.titulo|uppercase}} </strong> <i class="bi bi-arrow-right"></i> {{ca.descripcion}} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>     
+      
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-9">
+      <div class="row" *ngIf="fequi">
+        <button class="btn btn-outline-primary" (click)="agregar()"><mat-icon>add</mat-icon> Nuevo Equipo</button>
+        <!-- <button mat-raised-button color="accent" data-toggle="modal" data-target="#agregarexcel"><i class="bi bi-plus"></i>Subir Listado de Equipos</button> -->
+      </div>
+      <hr>
+      <div class="row" *ngIf="fequi">
+        <input type="search" class="form-control" placeholder="Buscar..." name="filterPost"  [(ngModel)]="filterpost"  maxlength="20">
+      </div>
+      <hr *ngIf="fequi">
+      <div class="row" *ngIf="fequi">
+        <div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let e of equipos|filterE:filterpost">
+          <div class="card">
+            <div class="card bg-light">
+              <!-- <div class="card btn-outline-primary"> -->
+              <!-- <div class="card-header">{{e.nombre}}</div>   -->
+              <div class="card-header" style="background-color: rgb(9, 50, 78);color: white;">{{e.nombre}}</div>
+              <div class="card-body">
+                <div class="card-text"style="text-align:left">                        
+                  <strong>Colegio: </strong> {{e.colegio}}<br>
+                  <strong>Cuenta: </strong> {{cuentas(e.cuenta)}}<br>
+                  <strong>Clave: </strong> {{cuentas(e.clave)}}<br>
+                </div>
+                <hr>
+                <div class="card-text"style="text-align:right">
+                  <div class="btn-group" role="group" >
+                    <a (click)="eliminar(e.id)" class="btn btn-danger btn-sm">
+                      <mat-icon>delete</mat-icon>
+                    </a>    
+                    <a class="btn btn-success btn-sm" (click)="editar(e)">
+                      <mat-icon>edit</mat-icon>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>

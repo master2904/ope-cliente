@@ -1,0 +1,43 @@
+<div>
+    <h3 mat-dialog-title>Nuevo Equipo</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" placeholder="Nos vale Python" name="nombre" maxlength="20">
+                        <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-label>Colegio</mat-label>
+                    <mat-select matNativeControl formControlName="id_colegio">
+                        <mat-option value={{c.codigo}} *ngFor="let c of col">
+                                {{c.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="id_colegio.invalid">{{error_colegio()}}</mat-error>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cuenta</mat-label>
+                        <input matInput formControlName="cuenta" type="text" placeholder="team999" name="cuenta" maxlength="10">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Clave</mat-label>
+                        <input matInput formControlName="clave" type="text" placeholder="5d6sFd" name="clave" maxlength="10">
+                    </mat-form-field>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div class="btn-group" role="group">
+            <button mat-button (click)="cancelar()" class="btn btn-dark">Cancelar</button>
+            <button mat-button [mat-dialog-close]="agregar" class="btn btn-danger" [disabled]="agregar.invalid">Agregar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div>
+    <h3 mat-dialog-title>Actualizar Concurso</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="formulario">
+                <p>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>titulo</mat-label>
+                        <input matInput formControlName="titulo" type="text" placeholder="titulo" name="titulo" maxlength="30" value="data.titulo">
+                        <mat-error *ngIf="titulo.invalid">{{error_titulo()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Gestion</mat-label>
+                        <input matInput formControlName="gestion" type="text" placeholder="II/2020" name="gestion" maxlength="10" value="data.gestion">
+                        <mat-error *ngIf="gestion.invalid">{{error_gestion()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [max]="maxDate" [matDatepicker]="picker" formControlName="fecha" name="fecha" value="data.fecha">
+                    <!-- <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="fecha" name="fecha" value="data.fecha"> -->
+                    <mat-hint>Mes/Dia/Año</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="fecha.invalid">{{error_fecha()}}</mat-error>
+                </mat-form-field>  
+                </p>
+                <p>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Hora</mat-label>
+                        <input matInput formControlName="hora" type="text" placeholder="10:00" name="hora" maxlength="5" value="data.hora">
+                        <mat-error *ngIf="hora.invalid">{{error_hora()}}</mat-error>
+                    </mat-form-field>
+                </p>    
+                <div>
+                    <input id="image" class="form-control" type="image"alt="Login" (click)="simagen.click()" src="../../../assets/images/sis_inf.png">
+                    <input type="file" accept="image/png,image/jpeg,image/jpg" class="form-control" #simagen id="imagen" formControlName="imagen" [hidden]="true" (change)="cargarImagen($event)">
+                    <mat-error *ngIf="imagen.invalid">{{error_imagen()}}</mat-error>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="formulario" class="btn btn-primary" [disabled]="formulario.invalid" (click)="editar()">Actualizar</button>
+    </div>
+</div>

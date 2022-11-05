@@ -1,0 +1,16 @@
+<div>
+    <div mat-dialog-content>
+        <h3 mat-dialog-title><strong>{{datos.nombre}}</strong></h3>
+        <!-- <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;"> -->
+                    <!-- <mat-form-field appearance="fill"> -->
+                        <p><strong>Colegio: </strong>{{m.colegio}}</p>
+                        <p><strong>Cuenta: </strong>{{datos.cuenta}}</p>
+                        <p><strong>Categoria: </strong>{{datos.titulo}}</p>
+                        <p><strong>Descripcion: </strong>{{datos.descripcion}}</p>
+                    <!-- </mat-form-field> -->
+        <!-- </div> -->
+    </div>
+    <div mat-dialog-actions>
+		<button mat-raised-button color="warn" (click)="cancelar()">Cerrar</button>
+    </div>
+</div>

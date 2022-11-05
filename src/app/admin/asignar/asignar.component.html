@@ -1,0 +1,89 @@
+<div class="container">
+    <br>
+    <h4 class="text-center" style="font-size: 25px;">ASIGNACION DE EQUIPOS</h4>
+    <hr>
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <table class="table table-bordered table-sm" style="font-size: 11px;">
+            <thead class="thead-dark">
+              <tr>
+                <th>Codigo</th>
+                <th>Colegio</th>
+                <th>Color</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of colegios;">
+                <td>{{c.codigo}}</td>
+                <td>{{c.nombre}}</td>
+                <td>
+                  <div [ngStyle]="{'background-color': c.color}" style="width: 100%; height: 20px; border-radius: 10%;  border: 1px solid #555;">
+                  </div>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>    
+        <div class="col-sm-12 col-md-6 col-lg-8"> 
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6"> 
+              <mat-form-field appearance="fill">
+                <mat-label>CONCURSOS</mat-label>
+                <mat-select>
+                  <mat-option>Vacio</mat-option>
+                  <mat-option *ngFor="let c of concursos" [value]="c.id" (click)="listar_concurso(c.id)">{{c.titulo|uppercase}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <mat-form-field appearance="fill" *ngIf="flabo">
+                <mat-label>LABORATORIOS</mat-label>
+                <mat-select>
+                  <mat-option>Vacio</mat-option>
+                  <mat-option *ngFor="let lab of laboratorios" [value]="lab.id" (click)="bus_lab(lab)">{{lab.aula|uppercase}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <table class="table">
+              <tbody>
+              <tr *ngFor="let fila of maquinas">
+                <td *ngFor="let col of fila" style="text-align: center; color: white;">
+                  <button mat-button class="maquina" [matMenuTriggerFor]="menu" [ngStyle]="{'background-color': col.color}" [ngClass]="{'claro':col.estado==0,'oscuro':col.estado==1}">{{col.numero}}
+                    <mat-icon *ngIf="col.estado==1" [ngClass]="{'claro':col.estado==0,'oscuro':col.estado==1}">more_vert</mat-icon>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item *ngIf="col.estado==1" (click)="ver(col)">Ver Maquina</button>
+                      <button mat-menu-item *ngIf="col.colegio=='vacio'" (click)="nuevo(col)">Registrar Equipo</button>
+                      <button mat-menu-item *ngIf="col.estado==1" (click)="alta(col)">Limpiar Maquina</button>
+                    </mat-menu>
+                  </button>
+                  <!-- <div class="btn-group">
+                    <div [ngStyle]="{'background-color': col.color}" style="width: 40px; height: 35px; border-radius: 30%;  border: 1px solid #555; ">
+                      <p style="margin-top: 8px;color: #fff; " *ngIf ="col.color!='#ffffff'">
+                        {{col.numero}}
+                      </p>
+                      <p style="margin-top: 8px;color: #000; " *ngIf ="col.color=='#ffffff'">
+                        {{col.numero}}
+                      </p>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-ligth dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="col.estado>=0">
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" (click)="ver(col)" *ngIf="col.estado==1">Ver Maquina</a>
+                      <a class="dropdown-item"(click)="nuevo(col)" *ngIf="col.colegio=='vacio'">Registrar Equipo</a>
+                      <a class="dropdown-item"(click)="alta(col)" *ngIf="col.estado==1">Limpiar Maquina</a>
+                    </div>
+                  </div> -->
+                  <br>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div *ngIf="des" style="text-align: center; width: 100%;">
+            <button type="button" class="btn btn-danger" (click)="pdf()" ><i class="bi bi-file-pdf" ></i> Descargar PDF</button>
+
+          </div>
+
+          </div>
+      </div>

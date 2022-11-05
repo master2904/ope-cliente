@@ -1,0 +1,46 @@
+<div>
+    <h3 mat-dialog-title>Nuevo Laboratorio</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Aula</mat-label>
+                        <input matInput formControlName="aula" type="text" placeholder="LSIC-2" name="aula" maxlength="20">
+                        <mat-error *ngIf="aula.invalid">{{error_aula()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Jefe de Laboratorio</mat-label>
+                        <input matInput formControlName="jefe_labo" type="text" placeholder="Ing. Miguel Reynolds" name="jefe_labo" maxlength="20">
+                        <mat-error *ngIf="jefe_labo.invalid">{{error_jefe_labo()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>#Maquinas</mat-label>
+                        <input matInput formControlName="maquinas" type="number" name="maquinas" value="20">
+                        <mat-error *ngIf="maquinas.invalid">{{error_maquinas()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>#Columnas</mat-label>
+                        <input matInput formControlName="columnas" type="number" name="columnas" value="20">
+                        <mat-error *ngIf="columnas.invalid">{{error_columnas()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <div>
+                    <input id="image" class="form-control" type="image"alt="Login" (click)="simagen.click()" src="../../../assets/images/sis_inf.png">
+                    <input type="file" accept="image/png,image/jpeg,image/jpg" class="form-control" #simagen id="imagen" formControlName="imagen" [hidden]="true" (change)="cargarImagen($event)">
+                    <mat-error *ngIf="imagen.invalid">{{error_imagen()}}</mat-error>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

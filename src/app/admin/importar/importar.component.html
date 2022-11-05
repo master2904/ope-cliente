@@ -1,0 +1,105 @@
+<br>  
+<h4>IMPORTAR EQUIPOS</h4>
+<br>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+      <mat-form-field appearance="fill">
+        <mat-label>CONCURSOS</mat-label>
+        <mat-select>
+          <mat-option>Elija un Concuro</mat-option>
+          <mat-option *ngFor="let c of concursos" [value]="c.id" (click)="mostrar_equipos(c)">{{c.titulo|uppercase}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="card bg-light mb-3" *ngIf="fequi">
+        <div class="card-header">
+          DETALLE
+        </div>
+        <div class="card-body" style="text-align: justify;">
+          <p class="card-text">Concurso: {{f_con.titulo}}</p>
+          <p class="card-text">Gestion: {{f_con.gestion}}</p>
+          <p class="card-text">Inicio: {{f_con.fecha|date:'short'}} </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-9">
+      <div class="row" *ngIf="fequi" >
+        <ul *ngFor="let cat of id_categorias" > Categoria: {{cat.id}} , {{cat.titulo}}</ul  >
+        <hr>
+        <form [formGroup]=listado>
+          <div class="custom-file">
+            <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="custom-file-input" id="customFile" formControlName="file" lang="es" (change)="cargar($event)" #archivo hidden="true">
+            <input type="image" src="../../../assets/images/excel.png" width="100%" height="250px" alt="" (click)="archivo.click();cargar_excel()">
+          </div>
+          <div class="progress" *ngIf="lista!=null">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <button mat-raised-button class="btn btn-outline-primary" (click)="enviar()" *ngIf="lista!=null" ><mat-icon>add</mat-icon> Subir Listado de Equipos</button>
+        </form>
+      </div>
+
+      <hr *ngIf="fequi">
+      <div class="row" *ngIf="fequi">
+        <!-- <div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let e of equipos">
+          <div class="card">
+            <div class="card bg-light">
+              <div class="card-header" style="background-color: rgb(9, 50, 78);color: white;">{{e.nombre}}</div>
+              <div class="card-body">
+                <div class="card-text"style="text-align:left">                        
+                  <strong>Nro Categoria: </strong> {{e.id_categoria}}<br>
+                  <strong>Colegio: </strong> {{e.colegio}}<br>
+                  <strong>Cuenta: </strong> {{cuentas(e.cuenta)}}<br>
+                  <strong>Clave: </strong> {{cuentas(e.clave)}}<br>
+                </div>
+                <hr>
+                <div class="card-text"style="text-align:right">
+                  <div class="btn-group" role="group" >
+                    <a (click)="eliminar(e.id)" class="btn btn-danger btn-sm">
+                      <i class="bi bi-trash" ></i>
+                    </a>    
+                    <a class="btn btn-success btn-sm" (click)="editar(e)">
+                      <i class="bi bi-arrow-counterclockwise"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-dark">
+              <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Categoria</th>
+                  <th>Colegio</th>
+                  <th>Cuenta</th>
+                  <th>Clave</th>
+                  <!-- <th>Opcion</th> -->
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of equipos;let i=index">
+              <td>{{i+1}}</td>
+              <td class="medio">{{e.nombre}}</td>
+                <td>{{e.id_categoria}}</td>
+                <td> {{e.colegio}}</td>
+                <td> {{cuentas(e.cuenta)}}</td>
+                <td> {{cuentas(e.clave)}}</td>
+                <!-- <td>
+                  <div class="card-text"style="text-align:right">
+                    <div class="btn-group" role="group" >
+                      <a class="btn btn-success btn-sm" (click)="editar(e)">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                      </a>
+                      <a (click)="eliminar(e.id)" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash" ></i>
+                      </a>    
+                    </div>
+                  </div>
+                </td> -->
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>    
+  </div>

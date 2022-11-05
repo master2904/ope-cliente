@@ -1,0 +1,64 @@
+<div>
+    <h3 mat-dialog-title>Nuevo Usuario</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre" type="text" placeholder="Nombre" name="nombre" maxlength="20" minlength="3" pattern="[A-Za-z ]{3,20}">
+                        <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido" type="text" placeholder="Apellido" name="apellido" maxlength="20" minlength="3" pattern="[A-Za-z ]{3,20}">
+                        <mat-error *ngIf="apellido.invalid">{{error_apellido()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Rol</mat-label>
+                        <mat-select matNativeControl formControlName="rol">
+                            <mat-option value="1" selected>Administrador</mat-option>
+                            <mat-option value="2">Logística</mat-option>
+                            <mat-option value="3">Staff</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="rol.invalid">{{error_rol()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Correo</mat-label>
+                        <input matInput formControlName="email" type="email" placeholder="correo" name="email" maxlength="40">
+                        <mat-error *ngIf="email.invalid">{{error_email()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cuenta</mat-label>
+                        <input matInput formControlName="username" type="text" placeholder="Cuenta" name="username" minlength="4" maxlength="15" pattern="[A-Za-z0-9]{4,15}">
+                        <mat-error *ngIf="username.invalid">{{error_username()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Clave</mat-label>
+                        <input matInput formControlName="password" type="password" placeholder="Clave" name="clave" minlength="8" maxlength="20">
+                        <mat-error *ngIf="password.invalid">{{error_password()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                    <div>
+					    <input id="image" class="form-control" type="image"alt="Login" (click)="simagen.click()" src="../../../assets/images/sis_inf.png">
+					    <input type="file" accept="image/jpeg,image/jpg" class="form-control" #simagen id="imagen" formControlName="imagen" [hidden]="true" (change)="cargarImagen($event)">
+                        <mat-error *ngIf="imagen.invalid">{{error_imagen()}}</mat-error>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-danger" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

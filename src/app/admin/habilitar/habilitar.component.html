@@ -1,0 +1,98 @@
+<!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+  </mat-menu>
+  <mat-icon>more_vert</mat-icon>
+</button> -->
+<div class="container">
+    <br>
+    <h4 class="text-center" style="font-size: 25px;">HABILITACION DE MAQUINAS</h4>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4"> 
+            <div class="row" >
+                <div class="col-sm-12 col-md-6 col-lg-12"> 
+                    <mat-form-field appearance="fill">
+                        <mat-label>CONCURSOS</mat-label>
+                        <mat-select>
+                            <mat-option>Vacio</mat-option>
+                            <mat-option *ngFor="let c of concursos" [value]="c.id" (click)="listar_concurso(c.id)">{{c.titulo|uppercase}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-12" *ngIf="flabo" >
+                    <li class="list-group-item" style="background-color: black;color: white;">LABORATORIOS</li>
+                    <mat-selection-list #shoes [multiple]="false" style="text-align: left;">
+                        <mat-list-option *ngFor="let lab of laboratorios" [value]="lab.id" (click)="bus_lab(lab);">
+                            {{lab.aula|uppercase}}
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6"> 
+            <table class="table table-sm">
+              <tbody>
+              <tr *ngFor="let fila of maquinas">
+                <td *ngFor="let col of fila" style="text-align: center; color: white;">
+                  <div class="btn-group">
+                    <!-- <button class="maquina" [ngStyle]="{'background-color': col.color}" (click)="cambio(col)">
+                      {{col.numero}} -->
+                      <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" [ngStyle]="{'background-color': col.color}">
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item>
+                            <mat-icon>dialpad</mat-icon>
+                            <span>Redial</span>
+                          </button>
+                        </mat-menu>
+                        {{col.numero}}
+                        <mat-icon>more_vert</mat-icon>
+                      </button> -->
+                      <button mat-button class="maquina" [matMenuTriggerFor]="menu" [ngStyle]="{'background-color': col.color}" [ngClass]="{'claro':col.estado==0,'oscuro':col.estado==1}">{{col.numero}}
+                        <mat-icon>more_vert</mat-icon>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item *ngIf="col.estado>0">Maquina Asignada</button>
+                          <button mat-menu-item (click)="baja(col)" *ngIf="col.estado==0">Inhabilitar Maquina </button>
+                          <button mat-menu-item (click)="alta(col)" *ngIf="col.estado==-1">Habilitar Maquina </button>
+                        </mat-menu>
+                      </button>
+                      <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        
+                        <button mat-menu-item disabled>
+                          <span>Check voice mail</span>
+                        </button>
+                        
+                      </mat-menu> -->
+                    <!-- </button> -->
+                    <!-- <div [ngStyle]="{'background-color': col.color}" style="   ">
+                      <p style="margin-top: 20px; ">
+                        {{col.numero}}
+                      </p>
+                    </div> -->
+                  <!-- <div [ngStyle]="{'background-color': '#000000'}" style="width: 60px; height: 60px; border-radius: 30%;  border: 1px solid #555; " *ngIf="col.id_equipo>=0"> 
+                    <p style="margin-top: 20px; font-size: 30px;">
+                      {{col.numero}}, {{col.estado}}
+                    </p>
+                  </div> -->
+                      <!-- <button type="button" class="btn btn-sm btn-ligth dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  *ngIf="col.estado<=0">
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item">Ver Maquina</a>
+                        <a class="dropdown-item"(click)="baja(col)" *ngIf="col.estado==0">Inhabilitar Maquina</a>
+                        <a class="dropdown-item"(click)="alta(col)" *ngIf="col.estado==-1">Habilitar Maquina</a>
+                      </div> -->
+                    </div>
+                  <br>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          </div>
+      </div>
+    </div>

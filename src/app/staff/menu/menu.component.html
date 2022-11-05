@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+          <mat-nav-list class="side-navnar" style="font-size: 20px; text-align: center;">
+            <br>
+            <p>Olimpiada de Programación</p>
+            <p>Para Estudiantes de Secundaria</p>
+            <p>O.P.E.</p>
+              <img src={{imagen()}} alt="Foto" width="70px" style="border-radius: 50%;">
+              <br>
+            <p>{{getrol()}}  </p>
+          </mat-nav-list>
+          <!-- <br> -->
+          <mat-nav-list class="side-navnar">
+            <a class="menu1" mat-list-item routerLink="/staff/home"> <mat-icon>home</mat-icon>Inicio</a>
+            <a class="menu1" mat-list-item routerLink="/staff/perfil"> <mat-icon>account_circle</mat-icon>Perfil</a>
+            <!-- <a class="menu1" mat-list-item routerLink="/staff/colegio"> <mat-icon>school</mat-icon>Colegio</a> -->
+            
+            <a class="menu1" mat-list-item routerLink="/staff/habilitar"> <mat-icon>computer</mat-icon>Habilitar Maquinas</a>
+            <a class="menu1" mat-list-item routerLink="/staff/score"> <mat-icon>leaderboard</mat-icon>Score</a>
+            
+            <a class="menu1" mat-list-item (click)="cerrar_sesion()"> <mat-icon>exit_to_app</mat-icon>Cerrar Sesion</a>
+
+          </mat-nav-list>    
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>Menu</span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

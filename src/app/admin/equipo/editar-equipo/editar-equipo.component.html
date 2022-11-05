@@ -1,0 +1,39 @@
+<div>
+    <h3 mat-dialog-title>Actualizar Equipo</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" placeholder="Nos vale Python" name="nombre" maxlength="20" value="data.nombre">
+                        <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Colegio</mat-label>
+                        <input matInput formControlName="colegio" type="text" placeholder="La Salle" name="colegio" maxlength="30" value="data.colegio">
+                        <mat-error *ngIf="colegio.invalid">{{error_colegio()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cuenta</mat-label>
+                        <input matInput formControlName="cuenta" type="text" placeholder="team999" name="cuenta" maxlength="10" value="data.cuenta">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Clave</mat-label>
+                        <input matInput formControlName="clave" type="text" placeholder="5d6sFd" name="clave" maxlength="10" value="data.clave">
+                    </mat-form-field>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid">Actualizar</button>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div>
+    <h3 mat-dialog-title>Nuevo Colegio</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" placeholder="Nombre" name="nombre" maxlength="40" value="data.nombre">
+                        <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>color</mat-label>
+                        <input matInput formControlName="color" type="color" placeholder="color" name="color" maxlength="20" value="data.color">
+                        <mat-error *ngIf="color.invalid">{{error_color()}}</mat-error>
+                    </mat-form-field>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<br>
+<h4>PROBLEMAS</h4>
+<br>
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3"> 
+      <mat-form-field appearance="fill">
+        <mat-label>CONCURSOS</mat-label>
+        <mat-select>
+          <mat-option>Vacio</mat-option>
+          <mat-option *ngFor="let c of concursos" [value]="c.id" (click)="mostrar_categorias(c);">{{c.titulo|uppercase}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+	  <br>
+      <mat-form-field appearance="fill" *ngIf="fcat">
+        <mat-label>CATEGORIAS</mat-label>
+        <mat-select>
+          <mat-option>Vacio</mat-option>
+          <mat-option *ngFor="let ca of categorias" [value]="ca.id" (click)="mostrar_problemas(ca);">
+            <span class="badge bg-warning">
+              {{ ca.titulo }}
+            </span>
+              {{ca.descripcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>     
+      <div class="card bg-light mb-3" *ngIf="fprob">
+        <div class="card-header">DETALLE</div>
+        <div class="card-body" style="text-align: justify;">
+          <p class="card-text">Concurso: {{f_con.titulo}}</p>
+          <p class="card-text">Gestion: {{f_con.gestion}}</p>
+          <p class="card-text">Inicio: {{f_con.fecha|date:'medium'}} </p>
+          <p class="card-text">Categoria:{{f_cat.titulo}}</p>
+          <p class="card-text">Descipcion:{{f_cat.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-9" *ngIf="fprob">  
+		<button  class="btn btn-outline-primary" (click)="agregar()"><i class="bi bi-plus"></i>Nuevo Problema</button>
+		<hr *ngIf="fprob">
+		<div class="row" *ngIf="fprob">
+			<div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let p of problemas">
+				<div class="card">
+					<div class="card bg-light">
+						<div class="card-header" style="background-color: rgb(9, 50, 78);color: white;">
+							{{p.titulo}}
+						</div>
+						<div class="card-body">
+							<div class="card-text"style="text-align:left">                        
+								<strong>Alias: </strong> {{p.alias}}<br>
+								<strong>Dificultad: </strong> {{p.dificultad}}<br>
+								<strong>Autor: </strong> {{p.autor}}<br>
+								<strong>Color: </strong> {{p.color}}<br> 
+								<div [ngStyle]="{'background-color': p.color}" style="width: 100%; height: 10px;border: 1px solid #555"></div>
+								<br>
+							</div>
+							<div class="card-text"style="text-align:right">
+								<div class="btn-group" role="group" >
+									<a (click)="eliminar(p.id)" class="btn btn-danger">
+										<mat-icon>delete</mat-icon>
+									</a>    
+									<a class="btn btn-success" (click)="editar(p)">
+										<mat-icon>edit</mat-icon>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

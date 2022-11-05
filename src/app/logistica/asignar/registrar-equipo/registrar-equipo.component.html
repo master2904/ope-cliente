@@ -1,0 +1,29 @@
+<div>
+    <h4 mat-dialog-title>Registrar Equipo</h4>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label>Equipo</mat-label>
+                    <input matInput formControlName="id_equipo" type="text" placeholder="A1" name="alias" maxlength="20">
+                </mat-form-field> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Equipo</mat-label>
+                    <mat-select matNativeControl formControlName="id_equipo">
+                        <!-- <mat-option value='0'>Ninguno</mat-option> -->
+                            <mat-option value={{e.id}} *ngFor="let e of equipos" [ngStyle]="{'background-color': e.color}"> 
+                            <!-- <div [ngStyle]="{'background-color': e.color}" style="width:100%; height: 30px; border-radius: 5%;  border: 1px solid #555;"> -->
+                                {{e.titulo}} -> {{e.nombre}} 
+                            <!-- </div> -->
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="id_equipo.invalid">{{error_id_equipo()}}</mat-error>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid">Agregar</button>
+    </div>
+</div>

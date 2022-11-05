@@ -1,0 +1,49 @@
+<div class="container">
+    <br>
+    <h4 class="text-center" style="font-size: 25px;">HABILITACION DE MAQUINAS</h4>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4"> 
+            <div class="row" >
+                <div class="col-sm-12 col-md-6 col-lg-12"> 
+                  <div class="card bg-light mb-3" *ngFor="let con of concursos">
+                    <div class="card-header">{{con.titulo}}</div>
+                    <img src="{{llenar_imagen(con.imagen)}}" alt="Foto" width="100%" height="150px">
+                    <div class="card-body" style="text-align: justify;">
+                      <p class="card-text">Gestion: {{con.gestion}}</p>
+                      <p class="card-text">Inicio: {{con.fecha|date:'medium'}}</p>
+                    </div>
+                  </div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>LABORATORIOS</mat-label>
+                        <mat-select>
+                            <mat-option>Vacio</mat-option>
+                            <mat-option *ngFor="let lab of laboratorios" [value]="lab.id" (click)="bus_lab(lab);">{{lab.aula|uppercase}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6"> 
+            <table class="table table-sm">
+              <tbody>
+              <tr *ngFor="let fila of maquinas">
+                <td *ngFor="let col of fila" style="text-align: center; color: white;">
+                  <div class="btn-group">
+                      <button mat-button class="maquina" [matMenuTriggerFor]="menu" [ngStyle]="{'background-color': col.color}" [ngClass]="{'claro':col.estado==0,'oscuro':col.estado==1}">{{col.numero}}
+                        <mat-icon>more_vert</mat-icon>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item *ngIf="col.estado>0">Maquina Asignada</button>
+                          <button mat-menu-item (click)="baja(col)" *ngIf="col.estado==0">Inhabilitar Maquina </button>
+                          <button mat-menu-item (click)="alta(col)" *ngIf="col.estado==-1">Habilitar Maquina </button>
+                        </mat-menu>
+                      </button>
+                    </div>
+                  <br>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          </div>
+      </div>
+    </div>

@@ -1,0 +1,43 @@
+<hr>
+<!-- <div style="text-align: center; background-color: rgb(49, 45, 45);">
+    <img src="../../../assets/images/LOGO_SIS.png" alt="Foto" height="50px" width="10%" style="text-align: left;">
+    <img src="../../../assets/images/ope.png" alt="Foto" height="50px" width="10%">
+    <img src="../../../assets/images/LOGO_INF.png" alt="Foto" height="50px" width="10%">
+</div>-->
+<h2 style="text-align: center;"><strong>PERFIL</strong></h2>
+<hr> 
+<br>
+<div class="row" style="width: 100%;">
+    <div class="col-4 offset-1">
+        <!-- <div class="card border-secondary mb-6"> -->
+        <div class="card text-white bg-secondary mb-3">
+            <!-- <div class="card-header">Header</div> -->
+            <div class="card-body">
+                <img class="card-img-bottom" src={{imagen()}} alt="Imagen">
+                <!-- <h5 class="card-title">Nombre: {{nombre()}}</h5> -->
+                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <br>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nombre</label>
+                <input type="email" class="form-control"aria-describedby="emailHelp" value={{nombre()}} disabled=true>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Apellido</label>
+                <input type="email" class="form-control"aria-describedby="emailHelp" value={{apellido()}} disabled=true>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">E-mail</label>
+                <input type="email" class="form-control"aria-describedby="emailHelp" value={{email()}} disabled=true>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Cuenta</label>
+                <input type="email" class="form-control"aria-describedby="emailHelp" value={{cuenta()}} disabled=true>
+            </div>
+        </form>
+    </div>
+</div>

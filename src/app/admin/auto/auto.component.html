@@ -1,0 +1,95 @@
+<div class="container">
+    <br>
+    <h4 class="text-center" style="font-size: 25px;">ASIGNACION DE EQUIPOS AUTOMATICAMENTE</h4>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+            <mat-form-field appearance="fill">
+            <mat-label>CONCURSOS</mat-label>
+            <mat-select>
+                <mat-option>Vacio</mat-option>
+                <mat-option *ngFor="let c of concursos" [value]="c.id" (click)="listar_categorias(c.id)">{{c.titulo|uppercase}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+            <hr>
+            <h5 *ngIf="flat"><strong>CATEGORIAS</strong></h5>
+            <table class="table table-sm" *ngIf="flat">
+                <thead class="thead-dark">
+                    <th>TiTulo</th>
+                    <!-- <th>Descripcion</th> -->
+                    <th>#Equipos</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ca of categorias;let i=index">
+                        <td>{{ca.titulo}}</td>
+                        <!-- <td>{{ca.descripcion}}</td> -->
+                        <td>{{e_categoria[i]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <mat-form-field appearance="fill" *ngIf="flat">
+                <mat-label>LABORATORIOS</mat-label>
+                <mat-select>
+                    <mat-option>Seleccione los laboratorios a usar...!</mat-option>
+                    <mat-option *ngFor="let lab of laboratorios" [value]="lab.id" (click)="confirmar(lab)" >{{lab.aula|uppercase}} -> #Maquinas:{{lab.maquinas}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <table class="table">
+                <tbody>
+                    <tr *ngFor="let fila of laboratorios_elegidos;let i=index">
+                        <td>{{fila.aula|uppercase}}</td>
+                        <td>#{{fila.maquinas}}</td>
+                        <td><button class="btn btn-sm btn-danger quitar" (click)="quitar(i)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>  
+            <span class="badge badge-success">Total Maquinas: {{n}}</span>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5" *ngIf="flat">
+            <br>
+            <div class="row">
+                <div class="btn-group" role="group" >
+                    <a *ngFor="let ca of categorias;let i= index" (click)="asignar(i)" class="btn btn-outline-primary btn-sm">
+                      Asignar {{ca.titulo}}
+                    </a>    
+                </div>
+                
+                <!-- <button class="btn btn-sm btn-primary"(click)="asignar()"> Asignar Equipos</button> -->
+                <div *ngFor="let l of labos;let i = index" >
+                    <table class="table">
+                        <thead>
+                            <th>{{laboratorios_elegidos[i].aula|uppercase}}</th>
+                        </thead>
+                    <tbody>
+                    <tr *ngFor="let fila of l">
+                        <td *ngFor="let col of fila" style="text-align: center; color: white;">
+                                <button class="maquina" [ngStyle]="{'background-color': col.color}" [ngClass]="{'claro':col.estado==0,'oscuro':col.estado==1}"><p>{{col.numero}}</p></button>
+                            <br>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        <button class="btn btn-sm btn-success"(click)="guardar()" *ngIf="fguardar"> Guardar Cambios</button>
+    </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" *ngIf="flat">
+        <h5>EQUIPOS</h5>
+            <table class="table table-sm">
+                <thead class="thead-dark">
+                    <th>#</th>
+                    <th>Equipos</th>
+                    <th>Categoria</th>
+                    <th>Color</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let e of equipos;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{e.nombre}}</td>
+                        <td >{{e.titulo}}</td>
+                        <td><div [ngStyle]="{'background-color': e.color}" style="width: 100%; height: 20px; border-radius: 10%;  border: 1px solid #555;"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

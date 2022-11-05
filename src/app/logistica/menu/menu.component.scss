@@ -1,0 +1,43 @@
+a{
+  color: white;
+}
+mat-expansion-panel,mat-sidenav{
+  background-color:#343434;
+  color: white;
+}
+mat-toolbar{
+  background-color: #343434;
+  color: white;
+  display:   none;
+}
+mat-list-item{
+  background-color: rgb(52, 87, 183);
+  color: white;
+  // text-decoration: aliceblue;
+}
+.subitem{
+  background-color: rgb(42, 77, 173);
+  // background-color: rgb(32, 57, 153);
+  color: white;
+}
+.menu1{
+  color: white;
+  font-size: 15px;
+}
+@media (max-width:48em) {
+  mat-toolbar{
+    display: block;
+    // background-color: green;
+  }
+}
+.example-tree-node {
+  display: flex;
+  align-items: center;
+}
+.menu2{
+  margin-left: -30px;
+  font-size: 12px;
+}
+p{
+  font-size: 17px;
+}
