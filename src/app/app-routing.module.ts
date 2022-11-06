@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RolesGuard } from './roles.guard';
 const routes: Routes = [
   {
-    path:"admin",
+    path:'admin',
     loadChildren:()=>import('./admin/admin.module').then(a => a.AdminModule),
     data:{
       role:'1'
@@ -11,7 +11,7 @@ const routes: Routes = [
     canActivate:[RolesGuard]
   },
   {
-    path:"logistica",
+    path:'logistica',
     loadChildren:()=>import('./logistica/logistica.module').then(a => a.LogisticaModule),
     data:{
       role:'2'
@@ -19,7 +19,7 @@ const routes: Routes = [
     canActivate:[RolesGuard],
   },
   {
-    path:"staff",
+    path:'staff',
     loadChildren:()=>import('./staff/staff.module').then(a => a.StaffModule),
     data:{
       role:'3'
@@ -27,17 +27,19 @@ const routes: Routes = [
     canActivate:[RolesGuard]
   },
   {
-    path:"home",
+    path:'home',
     loadChildren:()=>import('./home/home.module').then(a => a.HomeModule)
   },
   {
-    path:"**",
+    path:'**',
     loadChildren:()=>import('./home/home.module').then(a => a.HomeModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
+
+  // imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
