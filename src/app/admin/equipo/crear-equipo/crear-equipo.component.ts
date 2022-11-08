@@ -20,6 +20,7 @@ export class CrearEquipoComponent implements OnInit {
       id_categoria: new FormControl(''),
       cuenta: new FormControl(''),
       clave: new FormControl(''),
+      posicion: new FormControl(''),
       created_at:new FormControl(''),
       updated_at:new FormControl('')
     });

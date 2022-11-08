@@ -5,6 +5,7 @@ export class FormularioEquipo {
         public id_colegio:number,
         public cuenta:string,
         public clave:string,
+        public posicion:number,
         public id_categoria:number
     ){}
 }

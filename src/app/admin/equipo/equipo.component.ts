@@ -114,11 +114,11 @@ export class EquipoComponent implements OnInit {
     });
   }
   nuevo(datos){
-    this.formulario=new FormularioEquipo(0,datos.nombre,datos.id_colegio,datos.cuenta,datos.clave,this.id_categoria);
+    this.formulario=new FormularioEquipo(0,datos.nombre,datos.id_colegio,datos.cuenta,datos.clave,0,this.id_categoria);
     console.log(this.formulario);
     this.equipo.nuevo(this.formulario).subscribe((data:any)=>{
       this.equipos=data;
-      // console.log(data);
+      console.log(data);
     });
     this.toast.success('Equipo creado exitosamente','Exito!');
   }
@@ -131,7 +131,7 @@ export class EquipoComponent implements OnInit {
   }
   
   update(datos){
-    this.formulario=new FormularioEquipo(datos.id,datos.nombre,datos.colegio,datos.cuenta,datos.clave,this.id_categoria);
+    this.formulario=new FormularioEquipo(datos.id,datos.nombre,datos.colegio,datos.cuenta,datos.clave,0,this.id_categoria);
     console.log(this.formulario);
     this.equipo.update(datos.id,this.formulario).subscribe((data:any)=>{
       this.equipos=data;

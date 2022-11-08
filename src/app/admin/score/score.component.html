@@ -45,7 +45,13 @@
     <tr *ngFor="let detalle of detalles| pipeScore: filterpost;let i =index" style="margin-bottom: -10px;">
       <td class="table-active" scope="row">{{i + 1}}</td>
       <td class="table-active" scope="row" style="text-align: left;" >
-        {{detalle[0].nombre}}
+        <!-- <mat-icon>more_vert</mat-icon> -->
+        <button mat-button class="maquina" [matMenuTriggerFor]="menu">
+          {{detalle[0].nombre}}
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Aula: {{detalle[0].aula}}, Maquina: {{detalle[0].numero}}</button>
+          </mat-menu>
+        </button>
       </td>
       <td>
         {{detalle[0].cuenta}}
@@ -62,7 +68,7 @@
       <td style="font-size: 10px;">
         {{detalle[2].resuelto}}({{detalle[2].tiempo}})
       </td>
-      <td style="font-size: 10px;" *ngIf="i==0">
+      <!-- <td style="font-size: 10px;" *ngIf="i==0">
         <img src="assets/images/oro.png" width="25px">(Oro)
       </td>
       <td style="font-size: 10px;" *ngIf="i==1">
@@ -72,7 +78,18 @@
         <img src="assets/images/bronce.png" width="25px">(Bronce)
       </td>
       <td style="font-size: 10px;" *ngIf="i==3">  Mencion de Honor  </td>
-      <td *ngIf="i>3" style="font-size: 10px;">   -    </td>
+      <td *ngIf="i>3" style="font-size: 10px;">   -    </td> -->
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==1">
+        <img src="assets/images/oro.png" width="25px">(Oro)
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==2">
+        <img src="assets/images/plata.png" width="25px">(Plata)
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==3">
+        <img src="assets/images/bronce.png" width="25px">(Bronce)
+      </td>
+      <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==4">Mencion de Honor</td>
+
     </tr>
   </tbody>
 </table>

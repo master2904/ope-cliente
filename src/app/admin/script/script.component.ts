@@ -56,7 +56,9 @@ export class ScriptComponent implements OnInit {
     this.cuenta=false;
     this.fboton=true;
     this.ide=id;
+    console.log(id);
     this.equipo.listar_concurso(id).subscribe((data:any)=>{
+      
       this.equipos=data;
       console.log(this.equipos);
     });

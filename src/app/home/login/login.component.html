@@ -22,8 +22,9 @@
               <p>
                   <mat-form-field appearance="fill">
                       <mat-label>Clave</mat-label>
-                      <mat-icon matSuffix>lock</mat-icon>
-                      <input matInput formControlName="password" type="password" placeholder="Clave" name="clave" maxlength="20" minlength="8">
+                      <mat-icon matSuffix (click)="fieldTextType=!fieldTextType" style="cursor:pointer">{{fieldTextType ? 'lock' : 'visibility'}}</mat-icon>
+                      <!-- <input type="{{pp}}" placeholder="Clave" name="clave" maxlength="20" minlength="8"> -->
+                      <input matInput formControlName="password" [type]="fieldTextType ? 'text' : 'password'" placeholder="Clave" name="clave" maxlength="20" minlength="8">
                       <mat-error *ngIf="password.invalid">{{error_clave()}}</mat-error>
                   </mat-form-field>
               </p>

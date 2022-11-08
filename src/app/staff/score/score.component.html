@@ -11,10 +11,6 @@
     </div>
   </div>
   <h4 style="text-align: center; font-size: 30px;">SCORE BOARD</h4>
-  <div class="col-3 offset-3">
-    <button class="btn btn-dark btn-sm" *ngIf="detalles[0][0].posicion>0">CONCURSO FINALIZADO</button>
-  </div>
-
   <div class="row">
     <div class="col-10 offset-1">
       <div class="btn-group" role="group" >
@@ -23,6 +19,10 @@
         </a>    
       </div>
     </div>
+    <!-- <div class="col-3 offset-3">
+      <button class="btn btn-dark btn-sm" *ngIf="detalles[0][0].posicion>0">CONCURSO FINALIZADO</button>
+    </div> -->
+    
   </div>
   <hr>
   <div class="col-10 offset-1" *ngIf="flat">
@@ -45,15 +45,21 @@
     <tr *ngFor="let detalle of detalles| pipeScore: filterpost;let i =index" style="margin-bottom: -10px;">
       <td class="table-active" scope="row">{{i + 1}}</td>
       <td class="table-active" scope="row" style="text-align: left;" >
-        {{detalle[0].nombre}}
+        <!-- {{detalle[0].nombre}} -->
+        <button mat-button class="maquina" [matMenuTriggerFor]="menu">
+          {{detalle[0].nombre}}
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Aula: {{detalle[0].aula}}, Maquina: {{detalle[0].numero}}</button>
+          </mat-menu>
+        </button>
       </td>
       <td>
         {{detalle[0].cuenta}}
       </td>
       <td *ngFor="let d of detalle[1]" style="text-align: center;font-size: 10px;">
-          <!-- <div  style="background-color:white; width: 90%; height: 40px;"  *ngIf="d.estado==0">
-          </div>              -->
-          <div [ngStyle]="{'background-color': d.color}" style="width: 80%; height: 30px; border-radius: 40%;  border: 1px solid #555; "*ngIf="d.estado>0" >
+          <div  style="background-color:white; width: 90%; height: 40px;"  *ngIf="d.estado==0">
+          </div>             
+          <div [ngStyle]="{'background-color': d.color}" style="width: 80%; height: 30px; border-radius: 40%;  border: 1px solid #555; "*ngIf="d.estado>0">
           </div>         
             <p *ngIf="d.intento>0"style="margin-bottom: -10px;">
               {{d.intento}}/{{d.tiempo}}
@@ -72,7 +78,12 @@
         <img src="assets/images/bronce.png" width="25px">(Bronce)
       </td>
       <td style="font-size: 10px;" *ngIf="posicion(i,detalle[2])==4">Mencion de Honor</td>
+      <!-- <td *ngIf="i>3" style="font-size: 10px;">   -    </td> -->
     </tr>
   </tbody>
 </table>
 </div>
+
+<!-- <p  *ngIf="id!=null">
+  <a class="btn btn-danger" (click)="pdf()" style="text-align: center;"><mat-icon>picture_as_pdf</mat-icon> Descargar PDF</a>
+</p> -->

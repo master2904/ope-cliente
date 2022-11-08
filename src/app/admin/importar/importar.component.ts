@@ -64,7 +64,7 @@ export class ImportarComponent implements OnInit {
   cargar(event){
     this.lista=<File>event.target.files[0];
     const ext=this.lista.name.split('.')[1];
-    this.nombre_lista="lista"+"."+ext;
+    this.nombre_lista="prueba"+"."+ext;
     // console.log(this.nombre_lista);
   }
   enviar(){

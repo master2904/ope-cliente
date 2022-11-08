@@ -45,7 +45,13 @@
     <tr *ngFor="let detalle of detalles| pipeScore: filterpost;let i =index" style="margin-bottom: -10px;">
       <td class="table-active" scope="row">{{i + 1}}</td>
       <td class="table-active" scope="row" style="text-align: left;" >
-        {{detalle[0].nombre}}
+        <!-- {{detalle[0].nombre}} -->
+        <button mat-button class="maquina" [matMenuTriggerFor]="menu">
+          {{detalle[0].nombre}}
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Aula: {{detalle[0].aula}}, Maquina: {{detalle[0].numero}}</button>
+          </mat-menu>
+        </button>
       </td>
       <td>
         {{detalle[0].cuenta}}

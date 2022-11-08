@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   email=null
   cuenta=null
   imagen=null
+  fieldTextType=false
   agregar:FormGroup;
   createFormGroup(){
     return new FormGroup({

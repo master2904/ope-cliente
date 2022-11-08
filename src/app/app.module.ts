@@ -76,7 +76,7 @@ const router:Routes=[];
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    RouterModule.forRoot(router,{useHash:true}),
+    RouterModule.forRoot(router),//,{useHash:true}),
     NgbModule,
     AdminModule,
     HomeModule,
