@@ -104,7 +104,9 @@ export class AsignarComponent implements OnInit {
       dialogo1.afterClosed().subscribe(art => {
         console.log(art.value)
         if (art != undefined)
-        this.baja(art.value);
+          this.baja(art.value);
+        else
+          this.toastr.info('Operacion Cancelada')
       }
       );
     });

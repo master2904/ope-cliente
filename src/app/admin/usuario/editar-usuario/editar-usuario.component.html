@@ -60,6 +60,6 @@
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
-        <button mat-button [mat-dialog-close]="formulario" class="btn btn-primary" [disabled]="formulario.invalid" (click)="cambiar()">Actualizar</button>
+        <button mat-button [mat-dialog-close]="formulario" class="btn btn-danger" [disabled]="formulario.invalid" (click)="cambiar()">Actualizar</button>
     </div>
 </div>

@@ -15,6 +15,7 @@ import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-i
 import { FormularioScore } from './formulario-score';
 import { RegistrarSolucionComponent } from './registrar-solucion/registrar-solucion.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 
   @Component({
   selector: 'app-score',
@@ -30,7 +31,7 @@ export class ScoreComponent implements OnInit {
   detalles=null;
   filterpost=[];
   actualizar:FormGroup;
-  constructor(private concurso:ConcursoService, private equipo:EquipoService,private categoria:CategoriaService, private problema:ProblemaService, private toasrt:ToastrService,private score:ScoreService,private dialog:MatDialog) { }
+  constructor(private concurso:ConcursoService, private equipo:EquipoService,private categoria:CategoriaService, private problema:ProblemaService, private toasrt:ToastrService,private score:ScoreService,private dialog:MatDialog,private dialogo:MatDialog) { }
   placeholderVar: string = "Your placeholder";
   ide=null;
   ngOnInit(): void {
@@ -77,7 +78,9 @@ export class ScoreComponent implements OnInit {
     const dialogo1 = this.dialog.open(RegistrarSolucionComponent, {data});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+        this.nuevo(art.value);
+      else
+        this.toasrt.info('Registro Cancelado')
     }
     );
   }
@@ -129,23 +132,34 @@ export class ScoreComponent implements OnInit {
     });
   }
   eliminar(form){
-    let formulario={id:null,id_cat:null};
-    formulario.id=form.id;
-    formulario.id_cat=this.id;
-    this.score.eliminar(formulario).subscribe((data:any)=>{
-      this.detalles=data[1];
-      this.problemas=data[0];
-      this.equipos=this.detalles[0];
-      this.detalle=this.detalles[1];
-      this.total=this.detalles[2];
-      this.ordenar();
-      this.toasrt.error("Alerta","Solucion Removida");     
-    },
-    error=>{
-      let err=error.status;
-      if(err==400)
-        this.toasrt.warning("Usted ya no puede realizar operaciones","Concurso Finalizado");
-    });
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar este Usuario?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+      
+        let formulario={id:null,id_cat:null};
+        formulario.id=form.id;
+        formulario.id_cat=this.id;
+        this.score.eliminar(formulario).subscribe((data:any)=>{
+          this.detalles=data[1];
+          this.problemas=data[0];
+          this.equipos=this.detalles[0];
+          this.detalle=this.detalles[1];
+          this.total=this.detalles[2];
+          this.ordenar();
+          this.toasrt.warning('Solucion Removida');
+        },
+        error=>{
+          let err=error.status;
+          if(err==400)
+            this.toasrt.error("Usted ya no puede realizar operaciones","Concurso Finalizado");
+        });
+      }
+      else
+        this.toasrt.info('Operacion Cancelada')
+    })        
   }
   posicion(i,detalle){
     if(i==0&&detalle.resuelto>0){
