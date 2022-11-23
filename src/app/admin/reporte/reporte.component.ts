@@ -13,7 +13,7 @@ export class ReporteComponent implements OnInit {
   pie=0;
   mostrar=false;
   // single: any[];
-  view: any[] = [800, 300];
+  view: any[] = [900, 300];
   single = [];
   categorias=[];
   colores=[];
@@ -66,7 +66,7 @@ concursos=[];
     this.pie=2;
     this.categorias=[];
     this.colores=[];
-    this.view = [600, 300];
+    this.view = [700, 300];
     this.categoria.listar_id(this.fcon.id).subscribe((data:any)=>{
       this.cate=data;
       console.log(this.cate)
@@ -89,6 +89,7 @@ concursos=[];
   listar(c){
     this.mostrar=true;
     this.fcon=c;
+    this.pie=0;
   }
   ngOnInit(): void {
     this.concurso.listar().subscribe((data:any)=>{

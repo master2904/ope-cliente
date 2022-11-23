@@ -41,6 +41,6 @@
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
-        <button mat-button [mat-dialog-close]="agregar" class="btn btn-primary" [disabled]="agregar.invalid" (click)="editar()">Actualizar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-danger" [disabled]="agregar.invalid" (click)="editar()">Actualizar</button>
     </div>
 </div>

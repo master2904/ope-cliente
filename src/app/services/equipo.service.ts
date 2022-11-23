@@ -20,7 +20,7 @@ export class EquipoService {
   }
   
   listar_concurso(id){    
-    return this.http.get(`${this.base}equipo/concurso/`+id);
+    return this.http.get(`${this.base}equipo/script/`+id);
   }
   listar_categorias(id){    
     return this.http.get(`${this.base}equipo/categoria/`+id);

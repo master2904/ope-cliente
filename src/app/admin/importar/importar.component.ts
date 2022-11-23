@@ -71,7 +71,7 @@ export class ImportarComponent implements OnInit {
     this.equipo.onUpload(this.lista,this.nombre_lista,this.id).subscribe(data=>{
       this.equipos=data;
       // console.log(data);
-      this.toast.success('Exito','Importacion exitosa');
+      this.toast.success('Importacion exitosa');
     },
     error=>{
       this.toast.error('Revise los campos del EXCEL','Error');

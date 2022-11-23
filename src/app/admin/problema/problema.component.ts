@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 import { ProblemaService } from 'src/app/services/problema.service';
 import { CategoriaService } from '../../services/categoria.service';
 import { ConcursoService } from '../../services/concurso.service';
@@ -13,7 +14,7 @@ import { FormularioProblema } from './formulario-problema';
   styleUrls: ['./problema.component.scss']
 })
 export class ProblemaComponent implements OnInit {
-  constructor(private toast:ToastrService,private problema:ProblemaService,private categoria:CategoriaService,private concurso:ConcursoService,private dialog:MatDialog) { }
+  constructor(private toast:ToastrService,private problema:ProblemaService,private categoria:CategoriaService,private concurso:ConcursoService,private dialog:MatDialog,private dialogo:MatDialog) { }
   concursos=[];  
   categorias=[];
   problemas=[];
@@ -29,7 +30,9 @@ export class ProblemaComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearProblemaComponent, {data});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+        this.nuevo(art.value);
+      else
+        this.toast.info('Operacion Cancelada');
     }
     );
   }
@@ -37,7 +40,9 @@ export class ProblemaComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarProblemaComponent, {data:datos});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+        this.toast.info('Operacion Cancelada');
     }
     );
   }
@@ -75,13 +80,20 @@ export class ProblemaComponent implements OnInit {
     this.problema.nuevo(this.formulario).subscribe((data:any)=>{
       this.problemas=data;
     });
-    this.toast.success('Problema creado exitosamente','Exito!');
+    this.toast.success('Problema creado exitosamente');
   }
   eliminar(id){
-    this.problema.eliminar(id,this.id_categoria).subscribe((data:any)=>{
-      this.problemas=data;      console.log(this.problemas);
-    });
-    this.toast.success('Problema eliminado exitosamente','Exito!');
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar este Usuario?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.problema.eliminar(id,this.id_categoria).subscribe((data:any)=>{
+          this.problemas=data;      console.log(this.problemas);
+        });
+        this.toast.success('Problema eliminado exitosamente','Exito!');
+      }});
   }
   update(datos){
     this.formulario=new FormularioProblema(datos.id,datos.alias,datos.titulo,datos.id_categoria,datos.dificultad,datos.autor,datos.color);

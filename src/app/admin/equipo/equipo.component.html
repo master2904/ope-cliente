@@ -15,9 +15,11 @@
         <mat-select>
           <mat-option>Vacio</mat-option>
           <mat-option *ngFor="let ca of categorias" [value]="ca.id" (click)="mostrar_equipos(ca);">
-            <span class="badge bg-warning">
-              Nro. {{ ca.id }}
-            </span>
+            <strong>
+              <span class="badge bg-success">
+                Nro. {{ ca.id }}
+              </span>
+            </strong>
             <strong>{{ca.titulo|uppercase}} </strong> <i class="bi bi-arrow-right"></i> {{ca.descripcion}} 
           </mat-option>
         </mat-select>

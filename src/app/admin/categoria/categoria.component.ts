@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 import { CategoriaService } from '../../services/categoria.service';
 import { ConcursoService } from '../../services/concurso.service';
 import { formularioConcurso } from '../concurso/formularioConcurso';
@@ -20,7 +21,9 @@ export class CategoriaComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearCategoriaComponent, {data:datos});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+        this.nuevo(art.value);
+      else
+        this.toastr.info('Operacion Cancelada')
     }
     );
   }
@@ -28,7 +31,9 @@ export class CategoriaComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarCategoriaComponent, {data:datos});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+        this.toastr.info('Operacion Cancelada')
     }
     );
   }
@@ -36,7 +41,7 @@ export class CategoriaComponent implements OnInit {
   concursos=[];
   categorias=[];
   cat=null;
-  constructor(private categoria:CategoriaService,private con:ConcursoService,private toastr:ToastrService,private dialog:MatDialog) { }
+  constructor(private categoria:CategoriaService,private con:ConcursoService,private toastr:ToastrService,private dialog:MatDialog,private dialogo:MatDialog) { }
   ngOnInit(): void {
     this.con.listar().subscribe((data:any)=>{
       this.concursos=data;
@@ -58,10 +63,21 @@ export class CategoriaComponent implements OnInit {
       this.toastr.success("Categoria Creada",'Exito!');
     });
   }
-  eliminar(id){
-    this.categoria.eliminar(id).subscribe((data:any)=>{
-      this.toastr.warning("Categoria Eliminada",'Exito!')      
-      this.categorias=data;
+  
+  eliminar(id): void {
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar esta Categoria?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.categoria.eliminar(id).subscribe((data:any)=>{
+          this.categorias=data;
+          this.toastr.success("Categoria Eliminada",'')
+        });          
+      } else {
+        this.toastr.info('Operacion Cancelada','');
+      }
     });
   }
   update(datos) {

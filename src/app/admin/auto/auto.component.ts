@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { faTruckMonster } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ColegioService } from 'src/app/services/colegio.service';
 import { ConcursoService } from 'src/app/services/concurso.service';
@@ -32,7 +33,7 @@ export class AutoComponent implements OnInit {
   flat=false;
   labos=[];
   ide=null;
-  constructor(private categoria:CategoriaService, private maquina:MaquinaService,private laboratorio:LaboratorioService,private toastr:ToastrService, private equipo:EquipoService, private concurso:ConcursoService,private colegio:ColegioService,private dialog:MatDialog) { }
+  constructor(private categoria:CategoriaService, private maquina:MaquinaService,private laboratorio:LaboratorioService,private toastr:ToastrService, private equipo:EquipoService, private concurso:ConcursoService,private colegio:ColegioService,private dialog:MatDialog,private dialogo:MatDialog) { }
   ngOnInit(): void {
     this.concurso.listar().subscribe((data:any)=>{this.concursos=data;})
     this.laboratorio.listar().subscribe((data:any)=>{this.laboratorios=data;})
@@ -57,19 +58,31 @@ export class AutoComponent implements OnInit {
       });
     })
   }
-  confirmar(lab){
+  confirmar(pos){
     this.contador++;
-    // console.log(lab);
-    this.llenar_labo(lab);
-    this.laboratorios_elegidos.push(lab);    
+    this.llenar_labo(this.laboratorios[pos]);
+    this.laboratorios_elegidos.push(this.laboratorios[pos]);
+    this.laboratorios.splice(pos,1);
   }
   quitar(pos){
-    this.n-= this.m_disponibles[pos];
-    this.m_disponibles.splice(pos,1);
-    this.laboratorios_elegidos.splice(pos,1);
-    this.labos.splice(pos,1);
-    this.contador--;
-    this.k--;
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea quitar este Laboratorio?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.laboratorios.push(this.laboratorios_elegidos[pos]);
+        this.n-= this.m_disponibles[pos];
+        this.m_disponibles.splice(pos,1);
+        this.laboratorios_elegidos.splice(pos,1);
+        this.labos.splice(pos,1);
+        this.contador--;
+        this.k--;
+        this.toastr.warning('laboratorio Removido')
+      }
+      else
+        this.toastr.info('Operacion Cancelada');
+    });
   }
   llenar_labo(lab){
     this.maquinas=[];
@@ -166,39 +179,48 @@ export class AutoComponent implements OnInit {
     this.vez=true;
   }    
   guardar(){
-    let auto=[];
-    this.labos.forEach(lab => {
-      lab.forEach(fila=>{
-        fila.forEach(col=>{
-          if(col.id==0 && col.estado){
-            auto.push(col);
-          }
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea quitar este Laboratorio?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+      let auto=[];
+      this.labos.forEach(lab => {
+        lab.forEach(fila=>{
+          fila.forEach(col=>{
+            if(col.id==0 && col.estado){
+              auto.push(col);
+            }
+          });
         });
       });
-    });
-    this.equipos=[];
-    this.equipo.listar_categorias(this.ide).subscribe((data:any)=>{
-      this.equipos_categoria=data;
-      this.equipos_categoria.forEach(cat => {
-        let t=0;
-        cat.forEach(e=>{
-          this.equipos.push(e);
-          t++;
-        })
-        this.e_categoria.push(t);
+      this.equipos=[];
+      this.equipo.listar_categorias(this.ide).subscribe((data:any)=>{
+        this.equipos_categoria=data;
+        this.equipos_categoria.forEach(cat => {
+          let t=0;
+          cat.forEach(e=>{
+            this.equipos.push(e);
+            t++;
+          })
+          this.e_categoria.push(t);
+        });
       });
-    });
-    this.maquina.rango(auto).subscribe((data:any)=>{
-        console.log(data);
-        this.toastr.success("Asignacion Exitosa","Exito");
-    },
-    error=>{
-      let er=error.status;
-      if(er==400)
-        this.toastr.error("No se pudo realizar la asignacion, revise los laboratorios","Error");
+      this.maquina.rango(auto).subscribe((data:any)=>{
+          console.log(data);
+          this.toastr.success("Asignacion Exitosa");
+      },
+      error=>{
+        let er=error.status;
+        if(er==400)
+          this.toastr.error("No se pudo realizar la asignacion, revise los laboratorios","Error");
+      }
+      );
     }
-    );
-    // console.log(auto);
+    else
+      this.toastr.info('Operacion Cancealada');
+    })
   }
   asignar(pos){
     this.fguardar=true;

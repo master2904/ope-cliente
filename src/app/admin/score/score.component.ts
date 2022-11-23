@@ -3,18 +3,15 @@ import { ConcursoService } from '../../services/concurso.service';
 import { EquipoService } from '../../services/equipo.service';
 import { CategoriaService } from '../../services/categoria.service';
 import { ProblemaService } from '../../services/problema.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ScoreService } from '../../services/score.service';
-import { fromJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import { jsPDF } from "jspdf";
-import { style } from '@angular/animations';
-import html2canvas from 'html2canvas';
 import autoTable from 'jspdf-autotable'
-import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 import { FormularioScore } from './formulario-score';
 import { RegistrarSolucionComponent } from './registrar-solucion/registrar-solucion.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 
   @Component({
   selector: 'app-score',
@@ -30,32 +27,36 @@ export class ScoreComponent implements OnInit {
   detalles=null;
   filterpost=[];
   actualizar:FormGroup;
-  constructor(private concurso:ConcursoService, private equipo:EquipoService,private categoria:CategoriaService, private problema:ProblemaService, private toasrt:ToastrService,private score:ScoreService,private dialog:MatDialog) { }
+  verificar=false;
+  constructor(private concurso:ConcursoService, private equipo:EquipoService,private categoria:CategoriaService, private problema:ProblemaService, private toasrt:ToastrService,private score:ScoreService,private dialog:MatDialog,private dialogo:MatDialog) { }
   placeholderVar: string = "Your placeholder";
   editar=false;
   finalizar(){
-    var resultado = window.confirm('Seguro de Finalizar el registro?');
-    if (resultado === true) {
-      let form=[];
-      // window.alert('Ok, Los demas usuarios ya no podran hacer operaciones.');
-      let i=1;
-      this.detalles.forEach(element => {
-          let f={id:null,posicion:null};
-          // console.log(element[0].id)
-          f.id=element[0].id;
-          f.posicion=i++;
-          form.push(f);
-        });
-        this.equipo.finalizar(form,this.detalles.length).subscribe((data:any)=>{
-          form=data;
-          console.log(data)
-          this.toasrt.success("Concurso Finalizado","Exito");
-          this.editar=false;
-        })
-    } else { 
-      this.toasrt.error("Aun se puede realizar registros","Cancelado");
-        
-    }
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar este Usuario?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        let form=[];
+        let i=1;
+        this.detalles.forEach(element => {
+            let f={id:null,posicion:null};
+            // console.log(element[0].id)
+            f.id=element[0].id;
+            f.posicion=i++;
+            form.push(f);
+          });
+          this.equipo.finalizar(form,this.detalles.length).subscribe((data:any)=>{
+            form=data;
+            console.log(data)
+            this.toasrt.success("Concurso Finalizado","Exito");
+            this.editar=false;
+          })
+      }
+      else
+      this.toasrt.info('Operacion Cancelada');
+    });
   }
   ngOnInit(): void {
     // this.actualizar=this.createFormGroup();
@@ -87,7 +88,15 @@ export class ScoreComponent implements OnInit {
       this.equipos=this.detalles[0];
       this.detalle=this.detalles[1];
       this.total=this.detalles[2];
-      // console.log(this.detalles[0]);
+      try{
+      let x:number= this.detalles[0][0].posicion
+      // console.log(this.detalles)
+      if(x>0)
+        this.verificar=true;
+      }
+      catch(error){
+        this.toasrt.warning('Revise si los equipos estan asignados en las maquinas','Alerta');
+      }
       this.ordenar();
     });
   }
@@ -98,6 +107,8 @@ export class ScoreComponent implements OnInit {
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
         this.nuevo(art.value);
+      else
+        this.toasrt.info('Operacion Cancelada')
     }
     );
   }
@@ -139,35 +150,45 @@ export class ScoreComponent implements OnInit {
       this.detalle=this.detalles[1];
       this.total=this.detalles[2];
       this.ordenar();
-      this.toasrt.success("Exito","Registro Agregado");      
+      this.toasrt.success("Registro Agregado");
     },
     error=>{
       this.f.estado=0;
       this.f.intento=0;
       let err=error.status;
       if(err==400)
-        this.toasrt.warning("Usted ya no puede realizar operaciones","Concurso Finalizado");
+        this.toasrt.error("Usted ya no puede realizar operaciones","Concurso Finalizado");
     });
   }
   eliminar(form){
-    let formulario={id:null,id_cat:null};
-    formulario.id=form.id;
-    formulario.id_cat=this.id;
-    this.score.eliminar(formulario).subscribe((data:any)=>{
-      console.log(data)
-      this.detalles=data[1];
-      this.problemas=data[0];
-      this.equipos=this.detalles[0];
-      this.detalle=this.detalles[1];
-      this.total=this.detalles[2];
-      this.ordenar();
-      this.toasrt.error("Alerta","Solucion Removida");     
-    },
-    error=>{
-      let err=error.status;
-      if(err==400)
-        this.toasrt.warning("Usted ya no puede realizar operaciones","Concurso Finalizado");
-    });
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea eliminar esta solucion?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        let formulario={id:null,id_cat:null};
+        formulario.id=form.id;
+        formulario.id_cat=this.id;
+        this.score.eliminar(formulario).subscribe((data:any)=>{
+          console.log(data)
+          this.detalles=data[1];
+          this.problemas=data[0];
+          this.equipos=this.detalles[0];
+          this.detalle=this.detalles[1];
+          this.total=this.detalles[2];
+          this.ordenar();
+          this.toasrt.warning('Solucion Removida');
+        },
+        error=>{
+          let err=error.status;
+          if(err==400)
+            this.toasrt.warning("Usted ya no puede realizar operaciones","Concurso Finalizado");
+        });
+      }
+      else
+        this.toasrt.info('Operacion Cancelada')
+    });      
   }
   posicion(i,detalle){
     if(i==0&&detalle.resuelto>0){
@@ -272,8 +293,9 @@ export class ScoreComponent implements OnInit {
         if (data.section === 'body' && data.column.index === n) {
           // data.row.height=20;
           let f= tabla[data.row.index];
+          console.log(f)
+
           let c= f[data.column.index];
-          // console.log(c)
           if(c=="          Oro")
             imag="assets/images/oro.png";
           if(c=="          Plata")
@@ -286,16 +308,19 @@ export class ScoreComponent implements OnInit {
         if (data.section === 'body' && data.column.index >1 && data.column.index<n-1) {
           // data.row.height=20;
           let f= this.detalles[data.row.index];
-          let d=f[1][data.column.index-2].color;
-          if(d!="#f0ffff"){
-            // console.log(d)
-            data.row.height=30;
-            doc.setFillColor(d+"");
-            doc.circle(data.cell.x+(data.cell.width/2) ,data.cell.y+10,7,'FD');
-            doc.setDrawColor("#000000");
-            doc.setFillColor("#ffffff");
+          // console.log(f);
+          if(f!=undefined){
+              let d=f[1][data.column.index-2].color;
+              if(d!="#f0ffff"){
+                // console.log(d)
+                data.row.height=30;
+                doc.setFillColor(d+"");
+                doc.circle(data.cell.x+(data.cell.width/2) ,data.cell.y+10,7,'FD');
+                doc.setDrawColor("#000000");
+                doc.setFillColor("#ffffff");
+              }
+            }
           }
-        }
       }
     })    
     addFooters(doc)

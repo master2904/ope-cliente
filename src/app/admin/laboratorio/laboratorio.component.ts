@@ -9,6 +9,7 @@ import { CrearLaboratorioComponent } from './crear-laboratorio/crear-laboratorio
 import { MatDialog } from '@angular/material/dialog';
 import { EditarLaboratorioComponent } from './editar-laboratorio/editar-laboratorio.component';
 import { VerLaboratorioComponent } from './ver-laboratorio/ver-laboratorio.component';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 @Component({
   selector: 'app-laboratorio',
   templateUrl: './laboratorio.component.html',
@@ -20,7 +21,7 @@ export class LaboratorioComponent implements OnInit {
   llenar_imagen(img){    
     return this.labo.imagen()+img;
   }
-  constructor(private labo:LaboratorioService, private route:Router,private toastr: ToastrService,private dialog:MatDialog) { 
+  constructor(private labo:LaboratorioService, private route:Router,private toastr: ToastrService,private dialog:MatDialog,private dialogo:MatDialog) { 
   }
   ngOnInit(): void {
     this.labo.listar().subscribe((data:any)=>{
@@ -34,7 +35,9 @@ export class LaboratorioComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearLaboratorioComponent, {data});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+       this.nuevo(art.value);
+       else
+       this.toastr.info('Operacion Cancelada','');
     }
     );
   }
@@ -42,7 +45,9 @@ export class LaboratorioComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarLaboratorioComponent, {data:lab});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+        this.toastr.info('Operacion Cancelada','');
     }
     );
   }
@@ -62,11 +67,21 @@ export class LaboratorioComponent implements OnInit {
       console.log(error.error.error);
     });
   }
-  remove(id){
-    this.labo.remove(id).subscribe((data:any)=>{
-      this.laboratorio=data;
+  remove(id): void {
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar este Laboratorio?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.labo.remove(id).subscribe((data:any)=>{
+          this.laboratorio=data;
+        });          
+        this.toastr.success('Laboratorio Eliminado','')
+      } else {
+        this.toastr.info('Operacion Cancelada','');
+      }
     });
-    this.toastr.success("Laboratorio Eliminado",'Exito!')      
   }
   update(datos) {
     let form=datos;

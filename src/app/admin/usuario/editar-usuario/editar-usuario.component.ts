@@ -23,7 +23,7 @@ export class EditarUsuarioComponent implements OnInit {
       img: new FormControl(''),
       imagen: new FormControl('',[]),
       email: new FormControl('',[Validators.required,Validators.email]),
-      password: new FormControl('',[Validators.required]),
+      password: new FormControl('',),
       created_at:new FormControl(''),
       updated_at:new FormControl('')
     });

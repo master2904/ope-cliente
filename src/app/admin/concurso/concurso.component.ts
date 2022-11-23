@@ -9,6 +9,7 @@ import { CrearConsursoComponent } from './crear-consurso/crear-consurso.componen
 import { formularioConcurso } from './formularioConcurso';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarConsursoComponent } from './editar-consurso/editar-consurso.component';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 
 @Component({
   selector: 'app-concurso',
@@ -25,7 +26,9 @@ export class ConcursoComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearConsursoComponent, {data});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+        this.nuevo(art.value);
+      else
+        this.toastr.info('Operacion Cancelada','');
     }
     );
   }
@@ -33,11 +36,13 @@ export class ConcursoComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarConsursoComponent, {data:datos});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+        this.toastr.info('Operacion Cancelada','');
     }
     );
   }
-  constructor(private concurso:ConcursoService,private toastr:ToastrService,private dp:DatePipe,private dialog:MatDialog){ 
+  constructor(private concurso:ConcursoService,private toastr:ToastrService,private dp:DatePipe,private dialog:MatDialog,private dialogo:MatDialog){ 
   }
   ngOnInit(): void {
     this.concurso.listar().subscribe((data:any)=>{
@@ -62,17 +67,36 @@ export class ConcursoComponent implements OnInit {
       });
       this.toastr.success("Concurso Creado",'Exito!');
   }
-  remove(id){
-    this.concurso.eliminar(id).subscribe((data:any)=>{
-      this.concursos=data;
+  remove(id): void {
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar este Concurso?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.concurso.eliminar(id).subscribe((data:any)=>{
+          this.concursos=data;
+        });
+        this.toastr.success("Concurso Eliminado",'');
+      } else {
+        this.toastr.info('Operacion Cancelada','');
+      }
     });
-    this.toastr.success("Concurso Eliminado",'Exito!')      
   }
   cambio(id){
-    // console.log(id)
-    this.concurso.cambio(id).subscribe((data:any)=>{
-      this.concursos=data;
-      this.toastr.success("Concurso Habilitado",'Exito...!')
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea activar este concurso?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.concurso.cambio(id).subscribe((data:any)=>{
+          this.concursos=data;
+          this.toastr.success("Concurso Habilitado",'')
+        });
+      }
+      else
+      this.toastr.info('Operacion Cancelada','');
     });
   }
   update(datos) {

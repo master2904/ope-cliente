@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ColegioService } from 'src/app/services/colegio.service';
 import { ConcursoService } from 'src/app/services/concurso.service';
@@ -64,7 +65,9 @@ export class EquipoComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearEquipoComponent, dialogConfig);
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+       this.nuevo(art.value);
+      else
+        this.toast.info('Operacion Cancelada');
     }
     );
   }
@@ -73,11 +76,13 @@ export class EquipoComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarEquipoComponent, {data:datos});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+        this.toast.info('Operacion Cancelada');
     }
     );
   }
-  constructor(private toast:ToastrService,private equipo:EquipoService,private categoria:CategoriaService,private concurso:ConcursoService,private imagen:ImagenService,private dialog:MatDialog,private colegio:ColegioService) {
+  constructor(private toast:ToastrService,private equipo:EquipoService,private categoria:CategoriaService,private concurso:ConcursoService,private imagen:ImagenService,private dialog:MatDialog,private colegio:ColegioService,private dialogo:MatDialog) {
   }
   ngOnInit(): void {
     this.colegio.listar().subscribe((data:any)=>{
@@ -98,12 +103,6 @@ export class EquipoComponent implements OnInit {
       this.categorias=data;
     });  
   }
-  // maximo(){
-  //   this.categoria.maximo(0).subscribe((data:any)=>{
-  //     this.id_max=data[0].maximo;
-  //     // console.log(data);
-  //   });
-  // }
   mostrar_equipos(datos){
     this.f_cat=datos;
     this.fequi=true;
@@ -123,11 +122,21 @@ export class EquipoComponent implements OnInit {
     this.toast.success('Equipo creado exitosamente','Exito!');
   }
   eliminar(id){
-    this.equipo.eliminar(id,this.idcat).subscribe((data:any)=>{
-      this.equipos=data;
-      console.log(this.equipos);
-    });
-    this.toast.success('equipo eliminado exitosamente','Exito!');
+    this.dialogo.open(DialogoComponent, {
+      data: `¿Desea Eliminar este Usuario?`
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.equipo.eliminar(id,this.idcat).subscribe((data:any)=>{
+          this.equipos=data;
+          console.log(this.equipos);
+        });
+        this.toast.success('equipo eliminado exitosamente','Exito!');
+      }
+      else
+        this.toast.info('Operacion Cancelada');
+  });
   }
   
   update(datos){

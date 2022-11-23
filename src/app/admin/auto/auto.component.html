@@ -15,7 +15,7 @@
             <h5 *ngIf="flat"><strong>CATEGORIAS</strong></h5>
             <table class="table table-sm" *ngIf="flat">
                 <thead class="thead-dark">
-                    <th>TiTulo</th>
+                    <th>Titulo</th>
                     <!-- <th>Descripcion</th> -->
                     <th>#Equipos</th>
                 </thead>
@@ -31,7 +31,7 @@
                 <mat-label>LABORATORIOS</mat-label>
                 <mat-select>
                     <mat-option>Seleccione los laboratorios a usar...!</mat-option>
-                    <mat-option *ngFor="let lab of laboratorios" [value]="lab.id" (click)="confirmar(lab)" >{{lab.aula|uppercase}} -> #Maquinas:{{lab.maquinas}}</mat-option>
+                    <mat-option *ngFor="let lab of laboratorios,let i=index" [value]="lab.id" (click)="confirmar(i)" >{{lab.aula|uppercase}} -> #Maquinas:{{lab.maquinas}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <table class="table">

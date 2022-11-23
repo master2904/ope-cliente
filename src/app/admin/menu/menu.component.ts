@@ -162,14 +162,18 @@ export class MenuComponent implements OnInit{
       this.toastr.warning('Finalizaste sesion','Atencion');
     }
     getrol(){
-      const rol=localStorage.getItem('rol');
-      if(rol==="1")
-        return "Administrador";
-      if(rol==="2")
-        return "Usuario";
-      if(rol==="3")
-        return "Staff";
-      return "";
+      try {
+        const rol=localStorage.getItem('rol');
+        if(rol==="1")
+          return "Administrador";
+        if(rol==="2")
+          return "Usuario";
+        if(rol==="3")
+          return "Staff";
+      } 
+      catch (error) {    
+      }
+        return "";
     }
     nombre(){
       return localStorage.getItem('nombre');

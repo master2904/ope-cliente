@@ -11,6 +11,7 @@ import { isUndefined } from 'util';
 import { Formulario } from './formulario';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
@@ -36,7 +37,9 @@ export class UsuarioComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearUsuarioComponent, {data});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+        this.nuevo(art.value);
+      else
+      this.toastr.info('Operacion Cancelada','');
     }
     );
   }
@@ -44,22 +47,32 @@ export class UsuarioComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarUsuarioComponent, {data:f});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+      this.toastr.info('Operacion Cancelada','');
     }
     );
   }
   nuevo(datos){
     let form=datos;
     let formulario:Formulario;
+    let sw=0;
     formulario=new Formulario(0,form.nombre,form.apellido,form.username,form.rol,form.img,form.email,form.password);
-    this.usuario.nuevo(formulario).subscribe((data:any)=>{
-      this.usuarios=data;
-      this.toastr.success("Usuario Creado",'Exito!');
-    },
-    error=>{
-      this.toastr.error("Esta cuenta ya existe",'Error!');
-      console.log(error.error.error);
+    this.usuarios.forEach(user => {
+      // console.log(user);
+
+      if(user.username==formulario.username){
+        this.toastr.error('Esta cuenta ya existe','Error');
+        sw=1;
+      }
     });
+    if(sw==0){
+      // console.log(sw);
+      this.usuario.nuevo(formulario).subscribe((data:any)=>{
+        this.usuarios=data;
+        this.toastr.success("Usuario Creado",'Exito!');
+      });
+    }
   }
   filterpost='';
   ide=null;
@@ -75,7 +88,7 @@ export class UsuarioComponent implements OnInit {
         return "";
     }
   }
-      constructor(private usuario:UsuarioService, private route:Router,private toastr: ToastrService,private dialog:MatDialog) {
+      constructor(private usuario:UsuarioService, private route:Router,private toastr: ToastrService,private dialog:MatDialog,public dialogo: MatDialog) {
       }
       ngOnInit(): void {
         this.usuario.listar().subscribe((data:any)=>{
@@ -86,13 +99,28 @@ export class UsuarioComponent implements OnInit {
     }
     nombre_i=null;
     file:File=null;
-    remove(id){
-      console.log(id);
-      this.usuario.eliminar(id).subscribe((data:any)=>{
-        console.log(data);
-        this.usuarios=data;
+
+    remove(id): void {
+      this.dialogo.open(DialogoComponent, {
+        data: `¿Desea Eliminar este Usuario?`
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          if(id>1){
+            this.usuario.eliminar(id).subscribe((data:any)=>{
+              console.log(data);
+              this.usuarios=data;
+              this.toastr.success('Usuario Eliminado','')
+            });
+          }
+          else {
+            this.toastr.error("No puede eliminar este usuario",'Error!');
+          }
+        }
+        else
+          this.toastr.info('Operacion Cancelada','');
       });
-      this.toastr.success("Usuario Eliminado",'Exito!')      
     }
     update(datos) {
       let form=datos;

@@ -5,6 +5,13 @@
             <form [formGroup]="agregar">
                 <p>
                     <mat-form-field appearance="fill">
+                        <mat-label>Codigo</mat-label>
+                        <input matInput formControlName="codigo" type="number" placeholder="codigo" name="codigo" min="1" max="100">
+                        <mat-error *ngIf="codigo.invalid">{{error_codigo()}}</mat-error>
+                    </mat-form-field>
+                </p>   
+                <p>
+                    <mat-form-field appearance="fill">
                         <mat-label>Nombre</mat-label>
                         <input matInput formControlName="nombre" type="text" placeholder="Nombre" name="nombre" maxlength="40" minlength="3" pattern="[A-Za-z0-9- ]{3,40}">
                         <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>

@@ -30,7 +30,9 @@ export class ColegioComponent implements OnInit {
     const dialogo1 = this.dialog.open(CrearColegioComponent, {data});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.nuevo(art.value);
+       this.nuevo(art.value);
+      else
+      this.toastr.info('Operacion Cancelada','');
     }
     );
   }
@@ -39,7 +41,9 @@ export class ColegioComponent implements OnInit {
     const dialogo1 = this.dialog.open(EditarColegioComponent, {data:lab});
     dialogo1.afterClosed().subscribe(art => {
       if (art != undefined)
-      this.update(art.value);
+        this.update(art.value);
+      else
+      this.toastr.info('Operacion Cancelada','');      
     }
     );
   }
@@ -59,10 +63,10 @@ export class ColegioComponent implements OnInit {
     });
   }
   remove(id){
-    this.colegio.eliminar(id).subscribe((data:any)=>{
-      this.colegios=data;
-    });
-    this.toastr.warning("Colegio Eliminado",'Atencion!')      
+    // this.colegio.eliminar(id).subscribe((data:any)=>{
+    //   this.colegios=data;
+    // });
+    this.toastr.error("Este colegio ya tiene equipos registrados",'Error!')      
   }
   update(datos) {
     let form=datos;

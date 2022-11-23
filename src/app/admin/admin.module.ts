@@ -64,9 +64,12 @@ import { AutoComponent } from './auto/auto.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { ReporteComponent } from './reporte/reporte.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { NgxChartModule } from 'ngx-chart';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GanadoresComponent } from './ganadores/ganadores.component';
+import { ButtonModule } from 'primeng/button';
+
 // import { NgxChartModule } from 'ngx-chart';
 
 @NgModule({
@@ -126,7 +129,8 @@ import { GanadoresComponent } from './ganadores/ganadores.component';
     MatDatepickerModule,
     MatMenuModule,
     NgxChartsModule,
-
+    ConfirmDialogModule,
+    ButtonModule
     // BrowserAnimationsModule
 ],
   exports:[

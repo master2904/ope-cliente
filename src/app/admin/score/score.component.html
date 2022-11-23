@@ -11,14 +11,14 @@
       </mat-form-field>
     </div>
     <div class="col-3 offset-3" *ngIf="editar">
-      <button class="btn btn-outline-dark btn-sm" (click)="finalizar()" *ngIf="detalles[0][0].posicion==0">Finalizar</button>
-      <button class="btn btn-dark btn-sm" *ngIf="detalles[0][0].posicion>0">CONCURSO FINALIZADO</button>
+      <button class="btn btn-outline-dark btn-sm" (click)="finalizar()" *ngIf="verificar==false">Finalizar</button>
+      <button class="btn btn-dark btn-sm" *ngIf="verificar==true">CONCURSO FINALIZADO</button>
     </div>
   </div>
   <div class="row">
     <div class="col-10 offset-1">
       <div class="btn-group" role="group" >
-        <a *ngFor="let ca of categorias" (click)="mostrar_detalle(ca.id)" class="btn btn-outline-danger btn-sm">
+          <a *ngFor="let ca of categorias" (click)="mostrar_detalle(ca.id)" class="btn btn-outline-danger btn-sm">
           {{ca.titulo}}-{{ca.descripcion}}  
         </a>    
       </div>
@@ -57,9 +57,9 @@
         {{detalle[0].cuenta}}
       </td>
       <td *ngFor="let d of detalle[1]" style="text-align: center;font-size: 10px;">
-          <div  style="background-color:white; width: 90%; height: 40px;"  *ngIf="d.estado==0" (click)="copiar(d);abrirDialogo()">
+          <div  style="background-color:white; width: 90%; height: 40px; cursor: pointer;"  *ngIf="d.estado==0" (click)="copiar(d);abrirDialogo()">
           </div>             
-          <div [ngStyle]="{'background-color': d.color}" style="width: 80%; height: 30px; border-radius: 40%;  border: 1px solid #555; "*ngIf="d.estado>0" (click)="eliminar(d)">
+          <div [ngStyle]="{'background-color': d.color}" style="width: 80%; height: 30px; border-radius: 40%;  border: 1px solid #555; cursor: pointer;" *ngIf="d.estado>0" (click)="eliminar(d)">
           </div>         
             <p *ngIf="d.intento>0"style="margin-bottom: -10px;">
               {{d.intento}}/{{d.tiempo}}

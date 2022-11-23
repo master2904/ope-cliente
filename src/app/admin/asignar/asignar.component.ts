@@ -96,9 +96,10 @@ export class AsignarComponent implements OnInit {
       dialogConfig.autoFocus = true;
       const dialogo1 = this.dialog.open(RegistrarEquipoComponent, dialogConfig);
       dialogo1.afterClosed().subscribe(art => {
-        console.log(art.value)
         if (art != undefined)
-        this.baja(art.value);
+          this.baja(art.value);
+        else
+          this.toastr.info('Operacion Cancelda');
       }
       );
     });

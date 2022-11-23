@@ -18,6 +18,7 @@ export class EditarColegioComponent implements OnInit {
       id:new FormControl(''),
       nombre:new FormControl('',[Validators.required,Validators.minLength(3)]),
       color:new FormControl('',[Validators.required]),
+      codigo: new FormControl('',[Validators.required,Validators.min(1),Validators.max(100)]),
       created_at:new FormControl(''),
       updated_at:new FormControl('')
     });
@@ -29,15 +30,28 @@ export class EditarColegioComponent implements OnInit {
       this.agregar.controls['id'].setValue(data.id);
       this.agregar.controls['nombre'].setValue(data.nombre);
       this.agregar.controls['color'].setValue(data.color);
+      this.agregar.controls['codigo'].setValue(data.codigo);
 
     }
   get color(){return this.agregar.get('color'); }  
   get nombre(){return this.agregar.get('nombre'); }  
+  get codigo(){return this.agregar.get('codigo'); }  
   ngOnInit(): void {
   }
   nuevo(){  }
   cancelar() {
     this.dialogRef.close();
+  }
+  error_codigo() {
+    if (this.codigo.hasError('required')) {
+      return 'Este campo es obligatorio';
+    }
+    if (this.codigo.hasError('min')) {
+      return 'Numeros positivos';
+    }
+    if (this.codigo.hasError('max')) {
+      return 'Maximo 100';
+    }
   }
   error_nombre() {
     if (this.nombre.hasError('required')) {
