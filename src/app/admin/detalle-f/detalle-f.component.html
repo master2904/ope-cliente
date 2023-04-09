@@ -1,0 +1,83 @@
+<br>
+<h5 style="text-align: center; font-size: 25px;">DETALLE DE LOS PRODUCTOS</h5>
+<br>
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-1 col-xl-1"></div>
+      <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+      <mat-form-field appearance="fill">
+        <mat-label>PRODUCTOS</mat-label>
+        <mat-select>
+          <mat-option>Vacio</mat-option>
+          <mat-option *ngFor="let c of productos" [value]="c.id" (click)="mostrar_tipo(c)">{{c.nombre|uppercase}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br> 
+    </div>
+</div>
+  <div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-1 col-xl-1"></div>
+  <div class="col-xl-2 col-lg-2 col-sm-12">
+    <div class="card text-white bg-dark" *ngIf="flat">
+      <div class="card bg-dark">
+        <div style="text-align: center;">
+          <img src="{{llenar_imagen(f_productos.imagen)}}" alt="Foto" width="100%" height="200px"> 
+        </div>
+        <div class="card-footer">
+          <h5 class="card-title" style="text-align: center;">{{f_productos.nombre}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-8 col-lg-8 col-sm-12">
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6" *ngFor="let t of tipos;let i = index">
+          <div class="card" (click)="mostrar_detalle(t)">
+            <div class="btn btn-outline-danger card ">
+              <div class="card-text"style="text-align:center;font-size: 12px;">
+                {{t.descripcion}}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <hr>
+    <button mat-raised-button class="btn btn-outline-primary"(click)="agregar()" *ngIf="flat2"><mat-icon>add</mat-icon>Nuevo Item</button>
+    <!-- <button type="button" class="btn btn-sm btn-outline-primary"(click)="agregar()" *ngIf="flat"><mat-icon class="icono">add</mat-icon>Nuevo Producto</button> -->
+    <table class="table table-sm table-bordered" *ngIf="flat2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Codigo</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio(Compra)</th>
+          <th scope="col">Precio(Venta)</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Opcion</th>
+       </tr>
+      </thead>
+    <tbody>    
+      <tr *ngFor="let d of detalles;let i =index">
+        <td>{{i + 1}}</td>
+        <td>{{d.codigo}}</td>
+        <td>{{d.descripcion}}</td>
+        <td style="color: #ff0000;" *ngIf='alerta(d.cantidad,d.stock_minimo)'>{{d.cantidad}}</td>
+        <td *ngIf='!alerta(d.cantidad,d.stock_minimo)'>{{d.cantidad}}</td>
+        <td>{{d.precio_compra}}</td>
+        <td>{{d.precio_venta}}</td>
+        <td>{{d.stock_minimo}}</td>
+        <td>
+          <div class="btn-group" role="group" >
+            <button type="button" class="btn btn-success btn-sm"  (click)="	cambiar(d)">
+              <mat-icon >edit</mat-icon>
+            </button>
+            <button href="" (click)="remove(d.id)" class="btn btn-danger btn-sm">
+              <mat-icon>delete</mat-icon>
+            </button>    
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

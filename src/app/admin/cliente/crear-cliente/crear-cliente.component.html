@@ -1,0 +1,34 @@
+<div>
+    <h3 mat-dialog-title>NUEVO PRODUCTO</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>NIT/CI</mat-label>
+                        <input matInput formControlName="nit" type="number" placeholder="NIT/CI" name="nit" maxlength="35">
+                        <mat-error *ngIf="nit.invalid">{{error_nit()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" placeholder="nombre" name="nombre" maxlength="35">
+                        <mat-error *ngIf="nombre.invalid">{{error_nombre()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido" type="text" placeholder="apellido" name="apellido" maxlength="35">
+                        <mat-error *ngIf="apellido.invalid">{{error_apellido()}}</mat-error>
+                    </mat-form-field>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-danger" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

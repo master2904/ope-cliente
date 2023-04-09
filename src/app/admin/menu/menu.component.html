@@ -1,73 +1,36 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-          <mat-nav-list class="side-navnar" style="font-size: 20px; text-align: center;">
-            <br>
-            <p>Olimpiada de Programación</p>
-            <p>Para Estudiantes de Secundaria</p>
-            <p>O.P.E.</p>
-            <img src={{imagen()}} alt="Foto" width="70px" style="border-radius: 50%;">
-              <br>
-            <p>{{getrol()}}  </p>
-          </mat-nav-list>
-          <!-- <br> -->
-          <mat-nav-list class="side-navnar">
-            <a class="menu1" mat-list-item routerLink="/admin/home"> <mat-icon>home</mat-icon>Inicio</a>
-            <a class="menu1" mat-list-item routerLink="/admin/perfil"> <mat-icon>account_circle</mat-icon>Perfil</a>
-            <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
-              <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding
-                [style.display]="shouldRender(node) ? 'flex' : 'none'"
-                class="example-tree-node">
-                <button mat-icon-button disabled></button>
-                <a class="menu1 menu2" mat-list-item routerLink={{node.routerLink}}>
-                  <mat-icon>{{node.icon}}</mat-icon>
-                  {{node.name}}
-                </a>                  
-              </cdk-tree-node>
-              <!-- This is the tree node template for expandable nodes -->
-              <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
-                             [style.display]="shouldRender(node) ? 'flex' : 'none'"
-                             class="example-tree-node">
-                <button mat-icon-button cdkTreeNodeToggle
-                        [attr.aria-label]="'Toggle ' + node.name"
-                        (click)="node.isExpanded = !node.isExpanded"
-                        [style.visibility]="node.expandable ? 'visible' : 'hidden'">
-                  <mat-icon class="mat-icon-rtl-mirror">
-                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                  </mat-icon>
-                </button>
-                <mat-icon>{{node.icon}}</mat-icon> {{node.name}}
-
-              </cdk-tree-node>
-            </cdk-tree>
-            
-            <!-- <ng-container *ngFor="let menu of menuList">
-                <ng-container [ngTemplateOutlet]="menu.children ?  childMenu : parentMenu"
-                    [ngTemplateOutletContext]="{menu:menu}">
-                </ng-container>
-            </ng-container> -->
-            <a class="menu1" mat-list-item routerLink="/admin/script"> <mat-icon>description</mat-icon>Generar Script</a>
-            <!-- <a class="menu1" mat-list-item routerLink="/admin/score"> <mat-icon>leaderboard</mat-icon>Score</a> -->
-            <a class="menu1" mat-list-item (click)="cerrar_sesion()"> <mat-icon>exit_to_app</mat-icon>Cerrar Sesion</a>
-            <!-- <a href="#" class="nav-link" (click)="cerrar_sesion()"><mat-icon class="icono">exit_to_app</mat-icon>Cerrar Sesion</a> -->
-          </mat-nav-list>    
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar>
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span>Menu</span>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
-
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse my-2 my-lg-0" id="collapsibleNavId">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item" ><a class="nav-link" routerLink="/admin/home"> <mat-icon class="icono">home</mat-icon>Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/usuario"> <mat-icon class="icono">person</mat-icon>Usuarios</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/proveedor"> <mat-icon class="icono">business</mat-icon>Proveedores</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/admin/cliente"> <mat-icon class="icono">people</mat-icon>Clientes</a></li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Ferreteria</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownId">
+              <a class="dropdown-item" href="/admin/producto">Producto</a>
+              <a class="dropdown-item" href="/admin/tipof">Categoria</a>
+              <a class="dropdown-item" href="/admin/detalle">Detalle</a>
+              <a class="dropdown-item" href="/admin/inventario">Inventario</a>
+              <a class="dropdown-item" href="/admin/ventaf">Ventas</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Barraca</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownId">
+              <a class="dropdown-item" href="#">Producto</a>
+              <a class="dropdown-item" href="#">Detalle</a>
+              <a class="dropdown-item" href="#">Inventario</a>
+              <a class="dropdown-item" href="#">Ventas</a>
+            </div>
+          </li>
+          <li class="nav-item"><a class="nav-link" (click)="cerrar_sesion()"> <mat-icon class="icono">exit_to_app</mat-icon>Cerrar Sesion</a></li>
+        </ul>
+      </div>
+    </nav>
+    <router-outlet></router-outlet>

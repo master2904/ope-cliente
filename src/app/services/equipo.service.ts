@@ -19,8 +19,11 @@ export class EquipoService {
     return this.http.get(`${this.base}equipo/colegio/`+id);
   }
   
-  listar_concurso(id){    
+  listar_script(id){    
     return this.http.get(`${this.base}equipo/script/`+id);
+  }
+  listar_concurso(id){    
+    return this.http.get(`${this.base}equipo/concurso/`+id);
   }
   listar_categorias(id){    
     return this.http.get(`${this.base}equipo/categoria/`+id);

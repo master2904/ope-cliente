@@ -1,0 +1,56 @@
+<div>
+    <h3 mat-dialog-title>NUEVO PRODUCTO</h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Codigo</mat-label>
+                        <input matInput formControlName="codigo" type="number" placeholder="Codigo" name="codigo" maxlength="35">
+                        <mat-error *ngIf="codigo.invalid">{{error_codigo()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Descripcion</mat-label>
+                        <input matInput formControlName="descripcion" type="text" placeholder="Descripcion" name="descripcion" maxlength="35">
+                        <mat-error *ngIf="descripcion.invalid">{{error_descripcion()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cantidad</mat-label>
+                        <input matInput formControlName="cantidad" type="number" placeholder="cantidad" name="cantidad" maxlength="35">
+                        <mat-error *ngIf="cantidad.invalid">{{error_cantidad()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Precio de compra</mat-label>
+                        <input matInput formControlName="precio_compra" type="number" placeholder="precio de compra" name="precio_compra" maxlength="35">
+                        <mat-error *ngIf="precio_compra.invalid">{{error_precio_compra()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Precio de venta</mat-label>
+                        <input matInput formControlName="precio_venta" type="number" placeholder="precio de venta" name="precio_venta" maxlength="35">
+                        <mat-error *ngIf="precio_venta.invalid">{{error_precio_venta()}}</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Stock Minimo</mat-label>
+                        <input matInput formControlName="stock_minimo" type="number" placeholder="Stock Minimo" name="stock_minimo" maxlength="35">
+                        <mat-error *ngIf="stock_minimo.invalid">{{error_stock_minimo()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-danger" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

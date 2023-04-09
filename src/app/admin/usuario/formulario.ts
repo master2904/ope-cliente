@@ -6,7 +6,7 @@ export class Formulario {
         public username:string,
         public rol:number,
         public imagen:string,
-        public email:string,
+        // public email:string,
         public password:string
     ){}
 }

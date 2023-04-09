@@ -4,21 +4,19 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { LaboratorioComponent } from './laboratorio/laboratorio.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { EquipoComponent } from './equipo/equipo.component';
 import { ConcursoComponent } from './concurso/concurso.component';
-import { CategoriaComponent } from './categoria/categoria.component';
 import { ProblemaComponent } from './problema/problema.component';
 import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule, Router } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { NavComponent } from './nav/nav.component';
-import { FilterUPipe } from './pipes/filter-u.pipe';
-import { FilterLPipe } from './pipes/filter-l.pipe';
-import { FilterPPipe } from './pipes/filter-p.pipe';
-import { FilterEPipe } from './pipes/filter-e.pipe';
+import { FilterUPipe } from '../pipes/filter-u.pipe';
+// '../pipes/pipe-detalle.pipe'
+import { FilterLPipe } from '../pipes/filter-l.pipe';
+import { FilterCliente } from '../pipes/filter-cliente.pipe';
+import { FilterEPipe } from '../pipes/filter-e.pipe';
 import { MenuComponent } from './menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -39,10 +37,6 @@ import {MatCardModule} from '@angular/material/card';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
-import { EditarLaboratorioComponent } from './laboratorio/editar-laboratorio/editar-laboratorio.component';
-import { CrearLaboratorioComponent } from './laboratorio/crear-laboratorio/crear-laboratorio.component';
-import { CrearCategoriaComponent } from './categoria/crear-categoria/crear-categoria.component';
-import { EditarCategoriaComponent } from './categoria/editar-categoria/editar-categoria.component';
 import { EditarConsursoComponent } from './concurso/editar-consurso/editar-consurso.component';
 import { CrearConsursoComponent } from './concurso/crear-consurso/crear-consurso.component';
 import { CrearEquipoComponent } from './equipo/crear-equipo/crear-equipo.component';
@@ -50,13 +44,8 @@ import { EditarEquipoComponent } from './equipo/editar-equipo/editar-equipo.comp
 import { CrearProblemaComponent } from './problema/crear-problema/crear-problema.component';
 import { EditarProblemaComponent } from './problema/editar-problema/editar-problema.component';
 import { RegistrarSolucionComponent } from './score/registrar-solucion/registrar-solucion.component';
-import { VerLaboratorioComponent } from './laboratorio/ver-laboratorio/ver-laboratorio.component';
 import { FilterConcursoPipe } from './pipes/filter-concurso.pipe';
 import { ImportarComponent } from './importar/importar.component';
-import { ColegioComponent } from './colegio/colegio.component';
-import { CrearColegioComponent } from './colegio/crear-colegio/crear-colegio.component';
-import { EditarColegioComponent } from './colegio/editar-colegio/editar-colegio.component';
-import { FilterColegioPipe } from './pipes/filter-colegio.pipe';
 import { HabilitarComponent } from './habilitar/habilitar.component';
 import { RegistrarEquipoComponent } from './asignar/registrar-equipo/registrar-equipo.component';
 import { VerMaquinaComponent } from './asignar/ver-maquina/ver-maquina.component';
@@ -69,24 +58,39 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GanadoresComponent } from './ganadores/ganadores.component';
 import { ButtonModule } from 'primeng/button';
-
+import { ProductoComponent } from './producto/producto.component';
+import { EditarProductoComponent } from './producto/editar-Producto/editar-Producto.component';
+import { CrearProductoComponent } from './producto/crear-Producto/crear-Producto.component';
+import { DetalleBComponent } from './detalle-b/detalle-b.component';
+import { DetalleFComponent } from './detalle-f/detalle-f.component';
+import { CrearDetalleComponent } from './detalle-f/crear-detalle/crear-detalle.component';
+import { EditarDetalleComponent } from './detalle-f/editar-detalle/editar-detalle.component';
+import { TipoFComponent } from './tipo-f/tipo-f.component';
+import { TipoBComponent } from './tipo-b/tipo-b.component';
+import { CrearTipoComponent } from './tipo-f/crear-tipo/crear-tipo.component';
+import { EditarTipoComponent } from './tipo-f/editar-tipo/editar-tipo.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
+import { CrearClienteComponent } from './cliente/crear-cliente/crear-cliente.component';
+import { EditarClienteComponent } from './cliente/editar-cliente/editar-cliente.component';
+import { InventarioComponent } from './inventario/inventario.component';
+import { VentafComponent } from './ventaf/ventaf.component';
+import { PipeDPipe } from '../pipes/pipe-detalle.pipe';
 // import { NgxChartModule } from 'ngx-chart';
 
 @NgModule({
   declarations: [
-    LaboratorioComponent, 
     UsuarioComponent, 
     EquipoComponent, 
     ConcursoComponent, 
-    CategoriaComponent, 
     ProblemaComponent, 
     HomeComponent, 
     AdminComponent,
-    NavComponent, 
     FilterUPipe, 
     FilterLPipe, 
-    FilterPPipe, 
+    FilterCliente, 
     FilterEPipe,
+    PipeDPipe,
     MenuComponent,
     PerfilComponent, 
     ScriptComponent, 
@@ -95,10 +99,8 @@ import { ButtonModule } from 'primeng/button';
     PipeScorePipe, 
     CrearUsuarioComponent, 
     EditarUsuarioComponent, 
-    EditarLaboratorioComponent, 
-    CrearLaboratorioComponent, 
-    CrearCategoriaComponent, 
-    EditarCategoriaComponent, 
+    EditarProductoComponent, 
+    CrearProductoComponent, 
     EditarConsursoComponent, 
     CrearConsursoComponent, 
     CrearEquipoComponent, 
@@ -106,8 +108,7 @@ import { ButtonModule } from 'primeng/button';
     CrearProblemaComponent, 
     EditarProblemaComponent, 
     RegistrarSolucionComponent, 
-    VerLaboratorioComponent, 
-    FilterConcursoPipe, ImportarComponent, ColegioComponent, CrearColegioComponent, EditarColegioComponent, FilterColegioPipe, HabilitarComponent, RegistrarEquipoComponent, VerMaquinaComponent, AutoComponent, ReporteComponent, GanadoresComponent
+    FilterConcursoPipe, ImportarComponent, HabilitarComponent, RegistrarEquipoComponent, VerMaquinaComponent, AutoComponent, ReporteComponent, GanadoresComponent, ProductoComponent, DetalleBComponent, DetalleFComponent, CrearDetalleComponent, EditarDetalleComponent, TipoFComponent, TipoBComponent, CrearTipoComponent, EditarTipoComponent, ClienteComponent, ProveedorComponent, CrearClienteComponent, EditarClienteComponent, InventarioComponent, VentafComponent
   ],
   imports: [
     CommonModule,

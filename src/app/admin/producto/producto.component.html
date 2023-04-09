@@ -1,0 +1,48 @@
+<br>
+<h5>PRODUCTOS</h5>
+<br>
+	<div class="row">
+  		<div class="col-lg-2 offset-1">        
+        <button type="button" class="btn btn-outline-primary"(click)="agregar()"><mat-icon>add</mat-icon>Nuevo Producto</button>
+      </div>
+      <div class="col-lg-8">
+        <input type="search" class="form-control" placeholder="Buscar" name="filterPost"  [(ngModel)]="filterpost"  maxlength="20">
+      </div>
+  </div>
+  
+  <hr>
+  <div class="row">
+  </div>
+    <br>
+<!-- listado-->
+<div class="row">
+</div>
+<div class="row">
+  <div class="col-xl-2 col-lg-3 col-sm-12" *ngFor="let lab of productos;let i=index">
+        <div class="card text-white bg-dark">
+        <!-- <div class="card-header" style="text-align: center;">{{lab.nombre}}</div> -->
+        <div class="card bg-dark">
+            <div style="text-align: center;">
+    					<img src="{{llenar_imagen(lab.imagen)}}" alt="Foto" width="100%" height="150px"> 
+            </div>
+            <div class="card-footer">
+              <h5 class="card-title" style="text-align: center;font-size: 15px;">{{lab.nombre}}</h5>
+
+              <div class="card-text"style="text-align:right">
+                <div class="btn-group" role="group" >
+                  <button class="btn btn-primary btn-sm"(click)="ver_labo(lab);">
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </button>    
+                  <button (click)="remove(lab.id)" class="btn btn-danger btn-sm">
+                    <mat-icon>delete</mat-icon>
+                  </button>    
+                  <button type="button" class="btn btn-success btn-sm" (click)="cambiar(lab)">
+                    <mat-icon >edit</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>  
+</div>

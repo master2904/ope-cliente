@@ -1,7 +1,5 @@
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LaboratorioComponent } from './laboratorio/laboratorio.component';
-import { CategoriaComponent } from './categoria/categoria.component';
 import { ConcursoComponent } from './concurso/concurso.component';
 import { EquipoComponent } from './equipo/equipo.component';
 import { ProblemaComponent } from './problema/problema.component';
@@ -13,11 +11,20 @@ import { AsignarComponent } from './asignar/asignar.component';
 import { ScoreComponent } from './score/score.component';
 import { AdminComponent } from './admin.component';
 import { ImportarComponent } from './importar/importar.component';
-import { ColegioComponent } from './colegio/colegio.component';
 import { HabilitarComponent } from './habilitar/habilitar.component';
 import { AutoComponent } from './auto/auto.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { GanadoresComponent } from './ganadores/ganadores.component';
+import { ProductoComponent } from './producto/producto.component';
+import { DetalleBComponent } from './detalle-b/detalle-b.component';
+import { DetalleFComponent } from './detalle-f/detalle-f.component';
+import { TipoFComponent } from './tipo-f/tipo-f.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
+import { InventarioComponent } from './inventario/inventario.component';
+import { VentafComponent } from './ventaf/ventaf.component';
+
+
 
 const routes: Routes = [
   {
@@ -28,20 +35,17 @@ const routes: Routes = [
       {path:'asignar',component:AsignarComponent},
       {path:'habilitar',component:HabilitarComponent},
       {path:'home',component:HomeComponent},
-      {path:'categoria',component: CategoriaComponent},
-      {path:'concurso',component: ConcursoComponent},
-      {path:'colegio',component: ColegioComponent},
-      {path:'equipo',component: EquipoComponent},
-      {path:'laboratorio',component: LaboratorioComponent},
-      {path:'problema',component: ProblemaComponent},
+      {path:'producto',component: ProductoComponent},
+      {path:'tipof',component: TipoFComponent},
+      {path:'detalle',component: DetalleFComponent},
+      {path:'detalles',component: DetalleBComponent},
       {path:'usuario',component: UsuarioComponent},
       {path:'perfil',component: PerfilComponent},
-      {path:'script',component: ScriptComponent},
-      {path:'score',component: ScoreComponent},
-      {path:'importar',component: ImportarComponent},
-      {path:'auto',component: AutoComponent},
       {path:'reporte',component: ReporteComponent},
-      {path:'ganadores',component: GanadoresComponent},
+      {path:'cliente',component: ClienteComponent},
+      {path:'proveedor',component: ProveedorComponent},
+      {path:'inventario',component: InventarioComponent},
+      {path:'ventaf',component: VentafComponent},
       {path:'**',redirectTo:'home'},
     ]
   }

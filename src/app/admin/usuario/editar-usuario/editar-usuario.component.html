@@ -30,13 +30,6 @@
                 </p>
                 <p>
                     <mat-form-field appearance="fill">
-                        <mat-label>Correo</mat-label>
-                        <input matInput formControlName="email" type="email" placeholder="correo" name="email">
-                        <mat-error *ngIf="email.invalid">{{error_email()}}</mat-error>
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field appearance="fill">
                         <mat-label>Cuenta</mat-label>
                         <input matInput formControlName="username" type="text" placeholder="Cuenta" name="username" minlength="4" maxlength="15" pattern="[A-Za-z0-9]{4,15}">
                         <mat-error *ngIf="username.invalid">{{error_username()}}</mat-error>

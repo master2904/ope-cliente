@@ -1,0 +1,61 @@
+<br>
+<h5 style="text-align: center; font-size: 25px;">VENTAS</h5>
+<br>
+<div class="row">
+  <div class="col-xl-4 col-lg-4 col-sm-12">
+	<input type="search" class="form-control" placeholder="Buscar" name="filterPost"  [(ngModel)]="filterpost"  maxlength="20">
+    <table class="table table-sm table-bordered table-responsive-sm" style="font-size: 10px;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Codigo</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <!-- <th scope="col">Precio(Venta)</th> -->
+          <th scope="col">Stock</th>
+          <th scope="col">Opcion</th>
+       </tr>
+      </thead>
+    <tbody>    
+      <tr *ngFor="let d of detalles| filterD: filterpost;let i =index;">
+        <td>{{i + 1}}</td>
+        <td>{{d.codigo}}</td>
+        <td>{{d.descripcion}}</td>
+        <td style="color: #ff0000;" *ngIf='alerta(d.cantidad,d.stock_minimo)'>{{d.cantidad}}</td>
+        <td *ngIf='!alerta(d.cantidad,d.stock_minimo)'>{{d.cantidad}}</td>
+        <!-- <td>{{d.precio_compra}}</td> -->
+        <td>{{d.precio_venta}}</td>
+        <td>{{d.stock_minimo}}</td>
+        <td style="text-align: center;"><button class="btn btn-sm btn-success">+</button></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="col-xl-7 col-lg-7 col-sm-12">
+    <table class="table table-sm table-bordered table-responsive-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Codigo</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <!-- <th scope="col">Precio(Venta)</th> -->
+          <th scope="col">Opcion</th>
+       </tr>
+      </thead>
+    <tbody>    
+      <tr *ngFor="let d of ventas;let i =index">
+        <td>{{i + 1}}</td>
+        <td>{{d.codigo}}</td>
+        <td>{{d.nombre}} {{d.descripcion}} {{d.d2}} </td>
+        <td>{{d.cantidad}}</td>
+        <!-- <td>{{d.precio_compra}}</td> -->
+        <td>{{d.precio_venta}}</td>
+        <td style="text-align: center;"><button class="btn btn-sm btn-danger">x</button></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

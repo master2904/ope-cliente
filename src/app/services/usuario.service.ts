@@ -16,7 +16,7 @@ export class UsuarioService {
     return this.http.get(`${this.base}usuario/`+id);
   }
   nuevo(form){
-    console.log(form);
+    // console.log(form);
     return this.http.post(`${this.base}usuario`,form);
   }
   eliminar(id){

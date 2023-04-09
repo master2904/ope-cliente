@@ -26,7 +26,7 @@ export class CrearUsuarioComponent implements OnInit {
       rol: new FormControl('',[Validators.required]),
       imagen: new FormControl('',[Validators.required]),
       img: new FormControl(''),
-      email: new FormControl('',[Validators.required,Validators.email]),
+      // email: new FormControl('',[Validators.required,Validators.email]),
       password: new FormControl('',[Validators.required,Validators.minLength(8)]),
       created_at:new FormControl(''),
       updated_at:new FormControl('')

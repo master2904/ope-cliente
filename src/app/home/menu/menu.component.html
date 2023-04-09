@@ -1,42 +1,14 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-          <mat-nav-list class="side-navnar" style="font-size: 20px; text-align: center;">
-            <br>
-            <p>Olimpiada de Programación</p>
-            <p>Para Estudiantes de Secundaria</p>
-            <p>O.P.E.</p>
-            <img src="../../../assets/images/ope.png" alt="Foto" height="150px">
-            <br>
-          </mat-nav-list>
-          <br>
-          <mat-nav-list class="side-navnar">
-            <a class="menu1" mat-list-item routerLink="/home/home"> <mat-icon>home</mat-icon>Inicio</a>
-            <a class="menu1" mat-list-item routerLink="/home/login"> <mat-icon>input</mat-icon>Iniciar Sesion</a>
-            <a class="menu1" mat-list-item routerLink="/home/acerca"> <mat-icon>info</mat-icon>Acerca de...</a>
-          </mat-nav-list>    
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <img src="../../../assets/images/sisinf.png" alt="Foto" height="50px">
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar>
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span>Menu</span>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse my-2 my-lg-0" id="collapsibleNavId">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item" ><a class="nav-link" routerLink="/home/home"> <mat-icon class="icono">home</mat-icon>Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/home/login"> <mat-icon class="icono">exit_to_app</mat-icon>Iniciar Sesion</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/home/acerca"> <mat-icon class="icono">people</mat-icon>Acerca de...</a></li>
+        </ul>
+      </div>
+    </nav>
+    <router-outlet></router-outlet>

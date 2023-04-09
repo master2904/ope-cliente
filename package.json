@@ -35,6 +35,7 @@
     "jquery": "^3.5.1",
     "jspdf": "^2.4.0",
     "jspdf-autotable": "^3.5.20",
+    "material-icons": "^1.13.2",
     "ngx-material-file-input": "^2.1.1",
     "ngx-material-timepicker": "^5.5.3",
     "ngx-toastr": "^13.2.1",

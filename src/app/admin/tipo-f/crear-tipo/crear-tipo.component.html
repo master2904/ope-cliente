@@ -1,0 +1,20 @@
+<div>
+    <h3 mat-dialog-title style="font-size:20px;"><strong>Nueva Categoria</strong></h3>
+    <div mat-dialog-content>
+        <div style="display: flex;flex-direction: column; margin:1rem auto; max-width: 700px; padding: 1rem;">
+            <form [formGroup]="agregar">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Descripcion</mat-label>
+                            <input matInput formControlName="descripcion" type="text" placeholder="descripcion" name="descripcion" maxlength="20" minlength="3" pattern="[A-Za-z 0-9]{3,20}">
+                        <mat-error *ngIf="descripcion.invalid">{{error_descripcion()}}</mat-error>
+                    </mat-form-field>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        <button mat-button [mat-dialog-close]="agregar" class="btn btn-danger" [disabled]="agregar.invalid" (click)="nuevo()">Agregar</button>
+    </div>
+</div>

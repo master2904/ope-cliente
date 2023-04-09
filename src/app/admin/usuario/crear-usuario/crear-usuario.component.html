@@ -30,13 +30,6 @@
                 </p>
                 <p>
                     <mat-form-field appearance="fill">
-                        <mat-label>Correo</mat-label>
-                        <input matInput formControlName="email" type="email" placeholder="correo" name="email" maxlength="40">
-                        <mat-error *ngIf="email.invalid">{{error_email()}}</mat-error>
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field appearance="fill">
                         <mat-label>Cuenta</mat-label>
                         <input matInput formControlName="username" type="text" placeholder="Cuenta" name="username" minlength="4" maxlength="15" pattern="[A-Za-z0-9]{4,15}">
                         <mat-error *ngIf="username.invalid">{{error_username()}}</mat-error>
@@ -50,7 +43,7 @@
                     </mat-form-field>
                 </p>
                     <div>
-					    <input id="image" class="form-control" type="image"alt="Login" (click)="simagen.click()" src="../../../assets/images/sis_inf.png">
+					    <input id="image" class="form-control" type="image"alt="Login" (click)="simagen.click()" src="../../../assets/images/new.png" style="width: 50%;text-align: center;">
 					    <input type="file" accept="image/jpeg,image/jpg" class="form-control" #simagen id="imagen" formControlName="imagen" [hidden]="true" (change)="cargarImagen($event)">
                         <mat-error *ngIf="imagen.invalid">{{error_imagen()}}</mat-error>
                     </div>

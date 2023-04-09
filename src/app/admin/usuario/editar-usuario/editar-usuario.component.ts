@@ -22,7 +22,7 @@ export class EditarUsuarioComponent implements OnInit {
       rol: new FormControl('',[Validators.required]),
       img: new FormControl(''),
       imagen: new FormControl('',[]),
-      email: new FormControl('',[Validators.required,Validators.email]),
+      // email: new FormControl('',[Validators.required,Validators.email]),
       password: new FormControl('',),
       created_at:new FormControl(''),
       updated_at:new FormControl('')
@@ -42,7 +42,7 @@ export class EditarUsuarioComponent implements OnInit {
     this.formulario.controls['id'].setValue(data.id);
     this.formulario.controls['nombre'].setValue(data.nombre);
     this.formulario.controls['apellido'].setValue(data.apellido);
-    this.formulario.controls['email'].setValue(data.email);
+    // this.formulario.controls['email'].setValue(data.email);
     this.formulario.controls['username'].setValue(data.username);
     this.formulario.controls['rol'].setValue(data.rol);
     this.formulario.controls['imagen'].setValue("");

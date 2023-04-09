@@ -247,9 +247,9 @@ export class ScoreComponent implements OnInit {
       var problema=detalle[1];
       for(let p of problema){
         if(p.intento>0)
-          vector.push("    "+p.intento+"/"+p.tiempo);
+          vector.push("        "+p.intento+"/"+p.tiempo);
         else
-          vector.push(" ");
+          vector.push("           ");
       }
       var resuelto=detalle[2].resuelto;
       var tiempo=detalle[2].tiempo;
@@ -287,24 +287,26 @@ export class ScoreComponent implements OnInit {
     // autoTable(doc,{columns:cabeza,body:tabla,theme:'grid',pageBreak:'auto',headStyles:{fillColor:[0,0,0],textColor:[255,255,255]},startY:230})
     // autoTable(doc,{html:'#tabla',theme:'grid',pageBreak:'auto',headStyles:{fillColor:[0,0,0],textColor:[255,255,255]},startY:230})
     let imag;
+    // console.log(tabla);
+    
     autoTable(doc,{columns:cabeza,body:tabla,theme:'grid',pageBreak:'auto',headStyles:{fillColor:[0,0,0],textColor:[255,255,255]},startY:230,
     didDrawCell: (data) => {
       // data.row.height=20;
         if (data.section === 'body' && data.column.index === n) {
-          // data.row.height=20;
-          let f= tabla[data.row.index];
-          console.log(f)
-
-          let c= f[data.column.index];
-          if(c=="          Oro")
+          if(tabla[data.row.index]){
+            let f= tabla[data.row.index];
+            let c= f[data.column.index];
+            if(c=="          Oro")
             imag="assets/images/oro.png";
-          if(c=="          Plata")
+            if(c=="          Plata")
             imag="assets/images/plata.png";
-          if(c=="          Bronce")
+            if(c=="          Bronce")
             imag="assets/images/bronce.png";
-          if(c!="Mencion de Honor")
+            if(c!="Mencion de Honor")
             doc.addImage(imag, 'JPEG', data.cell.x+5, data.cell.y -2, 20, 20)
+          }
         }
+    
         if (data.section === 'body' && data.column.index >1 && data.column.index<n-1) {
           // data.row.height=20;
           let f= this.detalles[data.row.index];

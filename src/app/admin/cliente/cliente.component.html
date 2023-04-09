@@ -1,0 +1,47 @@
+<br>
+<h5>CLIENTES</h5>
+<br>
+<div class="row">
+    <div class="col-lg-2 offset-1">
+        <div class="btn-group" role="group">
+            <button mat-raised-button class="btn btn-outline-primary"(click)="agregar()"><mat-icon>add</mat-icon>Nuevo Cliente</button>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <input type="search" class="form-control" placeholder="Buscar" name="filterPost"  [(ngModel)]="filterpost"  maxlength="20">
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-lg-8 offset-2">
+
+        <table class="table table-sm table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">CI/NIT</th>
+                <th scope="col">Nombre</th>
+                <!-- <th scope="col">Apellido</th> -->
+                <th scope="col">Opcion</th>
+            </tr>
+            </thead>
+        <tbody>    
+            <tr *ngFor="let c of clientes|filterC:filterpost;let i =index">
+            <td>{{i + 1}}</td>
+            <td>{{c.nit}}</td>
+            <td>{{c.nombre}} {{c.apellido}}</td>
+            <td>
+                <div class="btn-group" role="group" >
+                <button type="button" class="btn btn-success btn-sm"  (click)="cambiar(c)">
+                    <mat-icon >edit</mat-icon>
+                </button>
+                <button href="" (click)="remove(c.id)" class="btn btn-danger btn-sm">
+                    <mat-icon>delete</mat-icon>
+                </button>    
+                </div>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>

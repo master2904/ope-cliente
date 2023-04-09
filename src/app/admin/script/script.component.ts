@@ -62,7 +62,7 @@ export class ScriptComponent implements OnInit {
     this.ide=c.id;
     this.f_con=c;
     // console.log(id);
-    this.equipo.listar_concurso(c.id).subscribe((data:any)=>{
+    this.equipo.listar_script(c.id).subscribe((data:any)=>{
       this.equipos=data;
       // console.log(this.equipos);
     });

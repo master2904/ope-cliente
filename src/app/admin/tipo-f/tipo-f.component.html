@@ -1,0 +1,62 @@
+<br>
+<h5 style="text-align: center; font-size: 25px;"><strong>CATEGORIAS</strong></h5>
+<br>
+<div class="row">
+    <div class="col-xl-2"></div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+      <mat-form-field appearance="fill">
+        <mat-label>PRODUCTOS</mat-label>
+        <mat-select>
+          <mat-option>Vacio</mat-option>
+          <mat-option *ngFor="let c of productos" [value]="c.id" (click)="mostrar_detalle(c)">{{c.nombre|uppercase}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br> 
+    </div>
+</div>
+<div class="row">
+  <div class="col-xl-2"></div>
+  <div class="col-xl-3 col-lg-3 col-sm-12 ">
+    <div class="card text-white bg-dark" *ngIf="flat">
+      <div class="card bg-dark">
+        <div style="text-align: center;">
+          <img src="{{llenar_imagen(f_productos.imagen)}}" alt="Foto" width="100%" height="200px"> 
+        </div>
+        <div class="card-footer">
+          <h5 class="card-title" style="text-align: center;">{{f_productos.nombre}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-5 col-lg-8 col-sm-12">    
+    <button mat-raised-button class="btn btn-outline-primary"(click)="agregar()" *ngIf="flat"><mat-icon>add</mat-icon>Nueva Categoria</button>
+    <hr>
+    <table class="table table-sm table-bordered" *ngIf="flat">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Detalle</th>
+          <th scope="col" style="text-align: center;">Opcion</th>
+       </tr>
+      </thead>
+    <tbody>    
+      <tr *ngFor="let d of tipos;let i =index">
+        <td>{{i + 1}}</td>
+        <td>{{d.descripcion}}</td>
+        <td style="text-align: center;">
+          <div class="btn-group" role="group" >
+            <button type="button" class="btn btn-success btn-sm"  (click)="	actualizar(d)">
+              <mat-icon class="icono" >edit</mat-icon>
+            </button>
+            <button href="" (click)="remove(d.id)" class="btn btn-danger btn-sm">
+              <mat-icon class="icono">delete</mat-icon>
+            </button>    
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+

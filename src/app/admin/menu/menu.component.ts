@@ -9,130 +9,82 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { ArrayDataSource } from '@angular/cdk/collections';
 const TREE_DATA: ExampleFlatNode[] = [
   {
-    name: "Organizacion",
-    icon: "settings",
-    expandable:true,
-    level:0,
-    routerLink:""
-  },{
-    name: "Usuario",
-    icon: "people",
-    expandable:false,
-    routerLink: "/admin/usuario",
-    level:1
-  },
-  {
-    name: "Laboratorio",
-    icon: "domain",
-    expandable:false,
-    routerLink: "/admin/laboratorio",
-    level:1
-  },
-  {
-    name: "Colegio",
-    icon: "school",
-    expandable:false,
-    routerLink: "/admin/colegio",
-    level:1
-  },
-  {
-    name: "Competencia",
+    name: "Ferreteria",
     icon: "new_releases",
     routerLink:"",
     expandable:true,
     level:0
   },
   {
-      name: "Concurso",
+      name: "Productos",
       icon: "event",
-      routerLink: "/admin/concurso",
+      routerLink: "/admin/producto",
       expandable:false,
       level:1,
   },
   {
-      name: "Categoria",
+      name: "Detalles",
       icon: "merge",
-      routerLink: "/admin/categoria",
+      routerLink: "/admin/detalle",
       expandable:false,
       level:1,
   },
   {
-      name: "Problema",
-      icon: "book",
-      routerLink: "/admin/problema",
-      expandable:false,
-      level:1,
-  },
-  {
-      name: "Equipo",
-      icon: "group_work",
-      routerLink: "/admin/equipo",
-      expandable:false,
-      level:1,
-  },
-  {
-      name: "Importar Equipos",
+      name: "Inventario",
       icon: "storage",
-      routerLink: "/admin/importar",
+      routerLink: "/admin/inventario",
       expandable:false,
       level:1,
   },
   {
-    name: "Logistica",
+    name: "Barraca",
     icon: "build",
     routerLink:"",
     expandable:true,
     level:0
   },
   {
-      name: "Maquinas",
+      name: "Producto",
       icon: "computer",
       routerLink: "/admin/habilitar",
       expandable:false,
       level:1,
   },
   {
-      name: "Asignar",
+      name: "Detalle",
       icon: "important_devices",
       routerLink: "/admin/asignar",
       expandable:false,
       level:1,
   },
   {
-      name: "Automatico",
+      name: "Inventario",
       icon: "screen_share",
       routerLink: "/admin/auto",
       expandable:false,
       level:1,
-  },  
-  {
-    name: "Score",
-    icon: "leaderboard",
-    routerLink: "/admin/score",
-    expandable:false,
-    level:1,
-  },  
-  {
-    name: "Reportes",
-    icon: "pie_chart",
-    routerLink:"",
-    expandable:true,
-    level:0
   },
-  {
-      name: "Colegios",
-      icon: "school",
-      routerLink: "/admin/reporte",
-      expandable:false,
-      level:1,
-  },
-  {
-      name: "Ganadores",
-      icon: "school",
-      routerLink: "/admin/ganadores",
-      expandable:false,
-      level:1,
-  }  
+  // {
+  //   name: "Reportes",
+  //   icon: "pie_chart",
+  //   routerLink:"",
+  //   expandable:true,
+  //   level:0
+  // },
+  // {
+  //     name: "Colegios",
+  //     icon: "school",
+  //     routerLink: "/admin/reporte",
+  //     expandable:false,
+  //     level:1,
+  // },
+  // {
+  //     name: "Ganadores",
+  //     icon: "school",
+  //     routerLink: "/admin/ganadores",
+  //     expandable:false,
+  //     level:1,
+  // }  
 ];
 
 /** Flat node with expandable and level information */

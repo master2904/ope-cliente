@@ -10,10 +10,6 @@ import { ConcursoComponent } from './concurso/concurso.component';
 import { ProblemaComponent } from './problema/problema.component';
 import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
-import { FilterUPipe } from './pipes/filter-u.pipe';
-import { FilterLPipe } from './pipes/filter-l.pipe';
-import { FilterPPipe } from './pipes/filter-p.pipe';
-import { FilterEPipe } from './pipes/filter-e.pipe';
 import { MenuComponent } from './menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,7 +25,6 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ScriptComponent } from './script/script.component';
 import { AsignarComponent } from './asignar/asignar.component';
 import { ScoreComponent } from './score/score.component';
-import { PipeScorePipe } from './pipes/pipe-score.pipe';
 import {MatCardModule} from '@angular/material/card';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
@@ -44,12 +39,10 @@ import { CrearProblemaComponent } from './problema/crear-problema/crear-problema
 import { EditarProblemaComponent } from './problema/editar-problema/editar-problema.component';
 import { RegistrarSolucionComponent } from './score/registrar-solucion/registrar-solucion.component';
 import { VerLaboratorioComponent } from './laboratorio/ver-laboratorio/ver-laboratorio.component';
-import { FilterConcursoPipe } from './pipes/filter-concurso.pipe';
 import { ImportarComponent } from './importar/importar.component';
 import { ColegioComponent } from './colegio/colegio.component';
 import { CrearColegioComponent } from './colegio/crear-colegio/crear-colegio.component';
 import { EditarColegioComponent } from './colegio/editar-colegio/editar-colegio.component';
-import { FilterColegioPipe } from './pipes/filter-colegio.pipe';
 import { HabilitarComponent } from './habilitar/habilitar.component';
 import { RegistrarEquipoComponent } from './asignar/registrar-equipo/registrar-equipo.component';
 import { VerMaquinaComponent } from './asignar/ver-maquina/ver-maquina.component';
@@ -67,16 +60,11 @@ import { StaffRoutingModule } from './staff-routing.module';
     ProblemaComponent, 
     HomeComponent, 
     StaffComponent,
-    FilterUPipe, 
-    FilterLPipe, 
-    FilterPPipe, 
-    FilterEPipe,
     MenuComponent,
     PerfilComponent, 
     ScriptComponent, 
     AsignarComponent, 
     ScoreComponent, 
-    PipeScorePipe, 
     CrearUsuarioComponent, 
     EditarUsuarioComponent, 
     EditarLaboratorioComponent, 
@@ -89,7 +77,7 @@ import { StaffRoutingModule } from './staff-routing.module';
     EditarProblemaComponent, 
     RegistrarSolucionComponent, 
     VerLaboratorioComponent, 
-    FilterConcursoPipe, ImportarComponent, ColegioComponent, CrearColegioComponent, EditarColegioComponent, FilterColegioPipe, HabilitarComponent, RegistrarEquipoComponent, VerMaquinaComponent
+    ImportarComponent, ColegioComponent, CrearColegioComponent, EditarColegioComponent, HabilitarComponent, RegistrarEquipoComponent, VerMaquinaComponent
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,6 @@ import { UsuarioService } from '../../services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import autoTable, { Row } from 'jspdf-autotable'
 import { jsPDF } from "jspdf";
-import { isUndefined } from 'util';
 import { Formulario } from './formulario';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
@@ -57,7 +56,7 @@ export class UsuarioComponent implements OnInit {
     let form=datos;
     let formulario:Formulario;
     let sw=0;
-    formulario=new Formulario(0,form.nombre,form.apellido,form.username,form.rol,form.img,form.email,form.password);
+    formulario=new Formulario(0,form.nombre,form.apellido,form.username,form.rol,form.img,form.password);
     this.usuarios.forEach(user => {
       // console.log(user);
 
@@ -81,9 +80,9 @@ export class UsuarioComponent implements OnInit {
       case 1:
         return "Administrador";
       case 2:
-        return "Logística";
+        return "Ferreteria";
       case 3:
-        return "Staff";
+        return "Barraca";
       default:
         return "";
     }
@@ -125,7 +124,7 @@ export class UsuarioComponent implements OnInit {
     update(datos) {
       let form=datos;
       let formulario:Formulario;
-      formulario=new Formulario(form.id,form.nombre,form.apellido,form.username,form.rol,form.img,form.email,form.password);
+      formulario=new Formulario(form.id,form.nombre,form.apellido,form.username,form.rol,form.img,form.password);
       console.log(formulario)
       this.usuario.update(formulario.id,formulario).subscribe((data:any) => {
         this.toastr.success("Usuario Actualizado",'Exito!');
@@ -141,12 +140,12 @@ export class UsuarioComponent implements OnInit {
       const titulo="usuarios "+fecha;
       const doc = new jsPDF('p', 'pt', 'a4');
       const imagen= new Image();
-      imagen.src="assets/images/FNI.png";
-      doc.addImage(imagen,"png",480,30,60,60);
-      imagen.src="assets/images/uto.png";
-      doc.addImage(imagen,"png",40,30,60,60);
-      imagen.src="assets/images/sis_inf.png";
-      doc.addImage(imagen,"png",40,130,515,40);
+      // imagen.src="assets/images/FNI.png";
+      // doc.addImage(imagen,"png",480,30,60,60);
+      // imagen.src="assets/images/uto.png";
+      // doc.addImage(imagen,"png",40,30,60,60);
+      // imagen.src="assets/images/sis_inf.png";
+      // doc.addImage(imagen,"png",40,130,515,40);
       doc.setFontSize(9);
       doc.setFont('helvetica','bold')
       doc.text("UNIVERSIDAD TECNICA DE ORURO",230,45);
@@ -164,14 +163,14 @@ export class UsuarioComponent implements OnInit {
         x.push(i++)
         x.push(u.apellido+" "+u.nombre)
         x.push(this.role(u.rol))
-        x.push(u.email)
+        // x.push(u.email)
         x.push(u.username)
         x.push(" ")
         imagenes.push(u.imagen)
         data.push(x)
       }
       let imag;
-      let cabeza=['#','Nombre Completo','Rol','Correo','Cuenta','    Imagen    ']
+      let cabeza=['#','Nombre Completo','Rol','Cuenta','    Imagen    ']
       // autoTable(doc,{columns:cabeza,body:data,theme:'grid',pageBreak:'auto',headStyles:{fillColor:[0,0,0],textColor:[255,255,255]},startY:180,
       autoTable(doc,{columns:cabeza,body:data,pageBreak:'auto',headStyles:{fillColor:[0,0,0],textColor:[255,255,255]},startY:180,
       didDrawCell: (data) => {
